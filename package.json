@@ -56,7 +56,7 @@
     }
   },
   "lint-staged": {
-    "*.js": [
+    "*.{js,svelte}": [
       "prettier --write",
       "eslint --cache --fix",
       "jest --bail --findRelatedTests"
