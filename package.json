@@ -1,0 +1,13 @@
+{
+  "name": "panoptes",
+  "version": "0.0.1",
+  "description": "panoptes watches all",
+  "main": "index.js",
+  "repository": "https://github.com/itworkedonmymachine/panoptes.git",
+  "author": [
+    "Sanggu Han <korean139@gmail.com>",
+    "Seunghyun Shin <aass2356@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true
+}
