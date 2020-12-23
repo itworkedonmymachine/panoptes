@@ -55,8 +55,12 @@
     }
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
+    "*.js": [
+      "prettier --write",
+      "eslint --cache --fix",
+      "jest --bail --findRelatedTests"
+    ],
+    "*.{css,md}": "prettier --write"
   },
   "config": {
     "commitizen": {
