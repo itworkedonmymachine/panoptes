@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    jest: true,
   },
   extends: ["airbnb-base", "prettier"],
   parserOptions: {
@@ -14,5 +15,7 @@ module.exports = {
       processor: "svelte3/svelte3",
     },
   ],
-  rules: {},
+  rules: {
+    "import/no-mutable-exports": "off",
+  },
 };
