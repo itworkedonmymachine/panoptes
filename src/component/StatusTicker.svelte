@@ -38,7 +38,7 @@
     display: flex;
     flex-direction: row;
 
-    animation: ticker 10s linear;
+    animation: ticker 30s linear;
     animation-iteration-count: infinite;
   }
 </style>
