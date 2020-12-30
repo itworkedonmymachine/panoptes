@@ -1,7 +1,7 @@
 import { render } from '@testing-library/svelte';
 import StatusTickerItem from '../../src/component/StatusTickerItem.svelte';
 
-describe('Render Status Ticker Item', () => {
+describe('Render Container', () => {
   it('should render platform and status in row direction & align center', async () => {
     const { getByTestId } = render(StatusTickerItem, {
       props: {
@@ -31,7 +31,9 @@ describe('Render Status Ticker Item', () => {
       padding: '0 10px',
     });
   });
+});
 
+describe('Render Platform', () => {
   it('should render platform w/ font-weight bold', async () => {
     const { getByTestId } = render(StatusTickerItem, {
       props: {
@@ -46,7 +48,9 @@ describe('Render Status Ticker Item', () => {
       'font-weight': 'var(--font-weight-bold)',
     });
   });
+});
 
+describe('Render Status', () => {
   it('should render status w/ font-weight light', async () => {
     const { getByTestId } = render(StatusTickerItem, {
       props: {
