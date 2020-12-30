@@ -5,6 +5,18 @@
 </script>
 
 <style>
+  :root {
+    --header-height: 120px;
+
+    --font-size-xlarge: 64px;
+    --font-size-large: 48px;
+    --font-size-regular: 24px;
+    --font-size-small: 14px;
+
+    --font-weight-bold: 700;
+    --font-weight-light: 300;
+  }
+
   main {
     text-align: center;
     padding: 1em;

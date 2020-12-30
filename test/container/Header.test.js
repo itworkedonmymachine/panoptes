@@ -25,7 +25,7 @@ describe('Render Header', () => {
     expect(title.nextElementSibling).toEqual(settings);
   });
 
-  it('should render title w/ 64px bold, others w/ 24px light', async () => {
+  it('should render title w/ xlarge bold, others w/ regular light', async () => {
     const { getByTestId } = render(Header);
 
     const title = getByTestId('title');
@@ -33,16 +33,16 @@ describe('Render Header', () => {
     const settings = getByTestId('settings');
 
     expect(title).toHaveStyle({
-      'font-size': '64px',
-      'font-weight': 700,
+      'font-size': 'var(--font-size-xlarge)',
+      'font-weight': 'var(--font-weight-bold)',
     });
     expect(search).toHaveStyle({
-      'font-size': '24px',
-      'font-weight': 300,
+      'font-size': 'var(--font-size-regular)',
+      'font-weight': 'var(--font-weight-light)',
     });
     expect(settings).toHaveStyle({
-      'font-size': '24px',
-      'font-weight': 300,
+      'font-size': 'var(--font-size-regular)',
+      'font-weight': 'var(--font-weight-light)',
     });
   });
 
