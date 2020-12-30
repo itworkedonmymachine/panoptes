@@ -78,4 +78,18 @@ describe('Render Status Ticker', () => {
 
     expect(statusTicker.children.length).toBe(statusTickerMockDatas.length);
   });
+
+  it('number of status ticker animates infinitely', async () => {
+    const { getByTestId } = render(StatusTicker, {
+      props: {
+        statusTickerDatas: statusTickerMockDatas,
+      },
+    });
+
+    const statusTicker = getByTestId('status-ticker');
+
+    expect(statusTicker).toHaveStyle({
+      'animation-iteration-count': 'infinite',
+    });
+  });
 });

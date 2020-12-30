@@ -6,6 +6,17 @@
 </script>
 
 <style>
+  @keyframes ticker {
+    0% {
+      transform: translate3d(0, 0, 0);
+      visibility: visible;
+    }
+
+    100% {
+      transform: translate3d(-100%, 0, 0);
+    }
+  }
+
   .status-ticker-viewport {
     height: 40px;
 
@@ -20,6 +31,9 @@
     display: flex;
     flex-direction: row;
     height: 100%;
+
+    animation: ticker 10s linear;
+    animation-iteration-count: infinite;
   }
 </style>
 
