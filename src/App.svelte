@@ -1,4 +1,6 @@
 <script>
+  import Header from './container/Header.svelte';
+
   let name;
 </script>
 
@@ -24,6 +26,7 @@
   }
 </style>
 
+<Header />
 <main>
   <h1>Hello {name}!</h1>
   <p>
