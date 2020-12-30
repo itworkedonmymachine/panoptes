@@ -27,10 +27,16 @@
     border-bottom: 2px solid #000000;
   }
 
+  .status-ticker-viewport-inner {
+    display: flex;
+
+    width: 10000px;
+    height: 100%;
+  }
+
   .status-ticker {
     display: flex;
     flex-direction: row;
-    height: 100%;
 
     animation: ticker 10s linear;
     animation-iteration-count: infinite;
@@ -38,9 +44,18 @@
 </style>
 
 <div data-testid="status-ticker-viewport" class="status-ticker-viewport">
-  <div data-testid="status-ticker" class="status-ticker">
-    {#each statusTickerDatas as statusTickerData}
-      <StatusTickerItem {...statusTickerData} />
-    {/each}
+  <div
+    data-testid="status-ticker-viewport-inner"
+    class="status-ticker-viewport-inner">
+    <div data-testid="status-ticker" class="status-ticker">
+      {#each statusTickerDatas as statusTickerData}
+        <StatusTickerItem {...statusTickerData} />
+      {/each}
+    </div>
+    <div data-testid="status-ticker" class="status-ticker">
+      {#each statusTickerDatas as statusTickerData}
+        <StatusTickerItem {...statusTickerData} />
+      {/each}
+    </div>
   </div>
 </div>

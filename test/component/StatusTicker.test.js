@@ -53,43 +53,72 @@ describe('Render Viewport', () => {
       'border-bottom': '2px solid #000000',
     });
   });
+
+  it("should inner viewport have enough width and viewport's height", async () => {
+    const { getByTestId } = render(StatusTicker);
+
+    const statusTickerViewportInner = getByTestId(
+      'status-ticker-viewport-inner'
+    );
+
+    expect(statusTickerViewportInner).toHaveStyle({
+      width: '10000px',
+      height: '100%',
+    });
+  });
+
+  it('should have two ticker item list for loop seamlessly', async () => {
+    const { getByTestId } = render(StatusTicker);
+
+    const statusTickerViewportInner = getByTestId(
+      'status-ticker-viewport-inner'
+    );
+
+    expect(statusTickerViewportInner.childElementCount).toBe(2);
+  });
 });
 
 describe('Render Status Ticker', () => {
   it('should render status ticker items in row direction', async () => {
-    const { getByTestId } = render(StatusTicker);
+    const { getAllByTestId } = render(StatusTicker);
 
-    const statusTicker = getByTestId('status-ticker');
+    const statusTickers = getAllByTestId('status-ticker');
 
-    expect(statusTicker).toHaveStyle({
-      display: 'flex',
-      'flex-direction': 'row',
+    statusTickers.forEach((statusTicker) => {
+      expect(statusTicker).toHaveStyle({
+        display: 'flex',
+        'flex-direction': 'row',
+      });
     });
   });
 
   it('number of status ticker items should equal to provided data length', async () => {
-    const { getByTestId } = render(StatusTicker, {
+    const { getAllByTestId } = render(StatusTicker, {
       props: {
         statusTickerDatas: statusTickerMockDatas,
       },
     });
 
-    const statusTicker = getByTestId('status-ticker');
+    const statusTickers = getAllByTestId('status-ticker');
 
-    expect(statusTicker.children.length).toBe(statusTickerMockDatas.length);
+    statusTickers.forEach((statusTicker) => {
+      expect(statusTicker.childElementCount).toBe(statusTickerMockDatas.length);
+    });
   });
 
   it('number of status ticker animates infinitely', async () => {
-    const { getByTestId } = render(StatusTicker, {
+    const { getAllByTestId } = render(StatusTicker, {
       props: {
         statusTickerDatas: statusTickerMockDatas,
       },
     });
 
-    const statusTicker = getByTestId('status-ticker');
+    const statusTickers = getAllByTestId('status-ticker');
 
-    expect(statusTicker).toHaveStyle({
-      'animation-iteration-count': 'infinite',
+    statusTickers.forEach((statusTicker) => {
+      expect(statusTicker).toHaveStyle({
+        'animation-iteration-count': 'infinite',
+      });
     });
   });
 });
