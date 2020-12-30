@@ -23,8 +23,8 @@
     overflow: hidden;
 
     box-sizing: border-box;
-    border-top: 2px solid #000000;
-    border-bottom: 2px solid #000000;
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
   }
 
   .status-ticker-viewport-inner {

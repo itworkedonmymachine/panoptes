@@ -43,14 +43,14 @@ describe('Render Viewport', () => {
     });
   });
 
-  it('should have 2px border on top & bottom of viewport', async () => {
+  it('should have 1px border on top & bottom of viewport', async () => {
     const { getByTestId } = render(StatusTicker);
 
     const statusTickerViewport = getByTestId('status-ticker-viewport');
 
     expect(statusTickerViewport).toHaveStyle({
-      'border-top': '2px solid #000000',
-      'border-bottom': '2px solid #000000',
+      'border-top': '1px solid #000000',
+      'border-bottom': '1px solid #000000',
     });
   });
 
