@@ -18,6 +18,20 @@ describe('Render Status Ticker Item', () => {
     });
   });
 
+  it('should render Ticker Item container w/ padding', async () => {
+    const { getByTestId } = render(StatusTickerItem, {
+      props: {
+        platform: 'Test',
+      },
+    });
+
+    const statusTickerItem = getByTestId('status-ticker-item');
+
+    expect(statusTickerItem).toHaveStyle({
+      padding: '0 10px',
+    });
+  });
+
   it('should render platform w/ font-weight bold', async () => {
     const { getByTestId } = render(StatusTickerItem, {
       props: {
