@@ -13,21 +13,22 @@
 
   .container {
     width: 100%;
+    height: var(--header-height);
     display: flex;
     justify-content: space-between;
     text-align: center;
   }
 
   .title {
-    font-size: 64px;
-    font-weight: 700;
+    font-size: var(--font-size-xlarge);
+    font-weight: var(--font-weight-bold);
     margin: auto 0;
   }
 
   .search,
   .settings {
-    font-size: 24px;
-    font-weight: 300;
+    font-size: var(--font-size-regular);
+    font-weight: var(--font-weight-light);
     color: rgba(0, 0, 0, 0.3);
     margin: auto 0;
   }

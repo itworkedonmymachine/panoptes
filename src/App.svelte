@@ -5,11 +5,23 @@
 </script>
 
 <style>
+  :root {
+    --header-height: 120px;
+
+    --font-size-xlarge: 64px;
+    --font-size-large: 48px;
+    --font-size-regular: 24px;
+    --font-size-small: 14px;
+
+    --font-weight-bold: 700;
+    --font-weight-light: 300;
+  }
+
   main {
     text-align: center;
-    padding: 1em;
-    max-width: 240px;
     margin: 0 auto;
+
+    padding-top: var(--header-height);
   }
 
   h1 {
@@ -19,9 +31,30 @@
     font-weight: 100;
   }
 
-  @media (min-width: 640px) {
+  @media (max-width: 759px) {
     main {
-      max-width: none;
+      display: block;
+    }
+  }
+
+  @media (min-width: 760px) {
+    main {
+      width: 700px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (min-width: 1020px) {
+    main {
+      width: 1000px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    main {
+      width: 1200px;
+      margin: 0 auto;
     }
   }
 </style>
