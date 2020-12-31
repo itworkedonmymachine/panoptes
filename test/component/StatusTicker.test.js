@@ -24,7 +24,11 @@ const statusTickerMockDatas = [
 
 describe('Render Viewport', () => {
   it('should hide contents which overflows viewport', async () => {
-    const { getByTestId } = render(StatusTicker);
+    const { getByTestId } = render(StatusTicker, {
+      props: {
+        statusTickerDatas: statusTickerMockDatas,
+      },
+    });
 
     const statusTickerViewport = getByTestId('status-ticker-viewport');
 
@@ -34,7 +38,11 @@ describe('Render Viewport', () => {
   });
 
   it('should sizing w/ border-box', async () => {
-    const { getByTestId } = render(StatusTicker);
+    const { getByTestId } = render(StatusTicker, {
+      props: {
+        statusTickerDatas: statusTickerMockDatas,
+      },
+    });
 
     const statusTickerViewport = getByTestId('status-ticker-viewport');
 
@@ -44,7 +52,11 @@ describe('Render Viewport', () => {
   });
 
   it('should have 1px border on top & bottom of viewport', async () => {
-    const { getByTestId } = render(StatusTicker);
+    const { getByTestId } = render(StatusTicker, {
+      props: {
+        statusTickerDatas: statusTickerMockDatas,
+      },
+    });
 
     const statusTickerViewport = getByTestId('status-ticker-viewport');
 
@@ -55,7 +67,11 @@ describe('Render Viewport', () => {
   });
 
   it("should inner viewport have enough width and viewport's height", async () => {
-    const { getByTestId } = render(StatusTicker);
+    const { getByTestId } = render(StatusTicker, {
+      props: {
+        statusTickerDatas: statusTickerMockDatas,
+      },
+    });
 
     const statusTickerViewportInner = getByTestId(
       'status-ticker-viewport-inner'
@@ -68,7 +84,11 @@ describe('Render Viewport', () => {
   });
 
   it('should have two ticker item list for loop seamlessly', async () => {
-    const { getByTestId } = render(StatusTicker);
+    const { getByTestId } = render(StatusTicker, {
+      props: {
+        statusTickerDatas: statusTickerMockDatas,
+      },
+    });
 
     const statusTickerViewportInner = getByTestId(
       'status-ticker-viewport-inner'
@@ -80,7 +100,11 @@ describe('Render Viewport', () => {
 
 describe('Render Status Ticker', () => {
   it('should render status ticker items in row direction', async () => {
-    const { getAllByTestId } = render(StatusTicker);
+    const { getAllByTestId } = render(StatusTicker, {
+      props: {
+        statusTickerDatas: statusTickerMockDatas,
+      },
+    });
 
     const statusTickers = getAllByTestId('status-ticker');
 
