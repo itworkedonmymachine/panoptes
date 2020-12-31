@@ -1,5 +1,7 @@
 <script>
   import Header from './container/Header.svelte';
+  import StatusTicker from './component/StatusTicker.svelte';
+  import statusTickerMockDatas from './mockStatusData';
 
   let name;
 </script>
@@ -61,6 +63,7 @@
 
 <Header />
 <main>
+  <StatusTicker statusTickerDatas={statusTickerMockDatas} />
   <h1>Hello {name}!</h1>
   <p>
     Visit the
