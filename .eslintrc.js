@@ -16,6 +16,8 @@ module.exports = {
     },
   ],
   rules: {
+    'import/no-extraneous-dependencies': 'off',
     'import/no-mutable-exports': 'off',
+    'import/prefer-default-export': 'off',
   },
 };
