@@ -1,6 +1,7 @@
 <script>
   import Header from './container/Header.svelte';
   import StatusTicker from './component/StatusTicker.svelte';
+  import Watchlist from './component/Watchlist.svelte';
 </script>
 
 <style>
@@ -21,13 +22,6 @@
     margin: 0 auto;
 
     padding-top: var(--header-height);
-  }
-
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4em;
-    font-weight: 100;
   }
 
   @media (max-width: 759px) {
@@ -65,4 +59,5 @@
 <Header />
 <main>
   <StatusTicker />
+  <Watchlist />
 </main>
