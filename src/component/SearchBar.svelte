@@ -10,7 +10,9 @@
   // platform = platform.filter(platform => platform.includes(userInput));
   export let userInput = '';
   $: filteredPlatform = userInput
-    ? platforms.filter((platform) => platform.id.startsWith(userInput))
+    ? platforms.filter((platform) =>
+        platform.id.toLowerCase().startsWith(userInput.toLowerCase())
+      )
     : platforms;
 </script>
 

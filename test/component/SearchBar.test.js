@@ -2,7 +2,7 @@ import { render } from '@testing-library/svelte';
 import SearchBar from '../../src/component/SearchBar.svelte';
 
 describe('Render search bar', () => {
-  it('should render search bar and moddable', async () => {
+  it('should render search bar', async () => {
     const { getByTestId } = render(SearchBar);
 
     const searchbar = getByTestId('searchbar');
@@ -61,6 +61,21 @@ describe('Render search bar', () => {
     expect(platformlist.children.item(0).children.item(0)).toHaveAttribute(
       'value',
       'Docker'
+    );
+  });
+
+  it('should render platform list if user input is given in lowercase', async () => {
+    const { getByTestId } = render(SearchBar, {
+      props: {
+        userInput: 'github',
+      },
+    });
+
+    const platformlist = getByTestId('platformList');
+    expect(platformlist.childElementCount).toBe(1);
+    expect(platformlist.children.item(0).children.item(0)).toHaveAttribute(
+      'value',
+      'GitHub'
     );
   });
 });
