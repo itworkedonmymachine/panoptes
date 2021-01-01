@@ -1,7 +1,26 @@
 <script>
+  import { onDestroy } from 'svelte';
   import WatchlistItem from './WatchlistItem.svelte';
+  import { statuspageTickerStores } from '../store/statuspageStore';
 
   export let watchlistDatas = [];
+
+  let unsubscribes;
+
+  // if it's not test
+  if (watchlistDatas.length === 0) {
+    unsubscribes = statuspageTickerStores.forEach((store, i) => {
+      store.subscribe((statusTickerData) => {
+        watchlistDatas[i] = statusTickerData;
+      });
+    });
+  }
+
+  onDestroy(() => {
+    if (unsubscribes) {
+      unsubscribes.forEach((unsubscribe) => unsubscribe());
+    }
+  });
 </script>
 
 <style>
@@ -32,7 +51,7 @@
   </div>
   <div data-testid="watchlist-contents" class="watchlist-contents">
     {#each watchlistDatas as watchlistData}
-      <WatchlistItem platform={watchlistData} />
+      <WatchlistItem {...watchlistData} />
     {/each}
   </div>
 </div>
