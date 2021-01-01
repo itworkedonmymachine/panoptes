@@ -7,7 +7,7 @@ export const getStatusOf = async (statuspageId) => {
   return response.json();
 };
 
-export const getStatusTickerDataOf = (rawStatusPair) => {
+export const getStatusSummaryOf = (rawStatusPair) => {
   const { platform, status } = rawStatusPair;
   if (!status) {
     return {

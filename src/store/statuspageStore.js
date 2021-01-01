@@ -1,5 +1,5 @@
 import { readable, derived } from 'svelte/store';
-import { getStatusOf, getStatusTickerDataOf } from '../helper/statuspageHelper';
+import { getStatusOf, getStatusSummaryOf } from '../helper/statuspageHelper';
 
 const generatePair = (platform, pageId) => ({
   platform,
@@ -43,6 +43,6 @@ export const statuspageStores = platformStatuspageIdpairs.map((pair) =>
 );
 export const statuspageTickerStores = statuspageStores.map((rawStatusStore) =>
   derived(rawStatusStore, ($rawStatusPair) =>
-    getStatusTickerDataOf($rawStatusPair)
+    getStatusSummaryOf($rawStatusPair)
   )
 );
