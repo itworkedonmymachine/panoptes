@@ -6,6 +6,11 @@
   .watchlist {
     text-align: left;
   }
+
+  .watchlist-header {
+    font-size: var(--font-size-regular);
+    font-weight: var(--font-weight-light);
+  }
 </style>
 
 <div data-testid="watchlist" class="watchlist">

@@ -22,6 +22,17 @@ describe('Render Watchlist', () => {
     });
   });
 
+  it('should render header w/ regular light', async () => {
+    const { getByTestId } = render(Watchlist);
+
+    const header = getByTestId('watchlist-header');
+
+    expect(header).toHaveStyle({
+      'font-size': 'var(--font-size-regular)',
+      'font-weight': 'var(--font-weight-light)',
+    });
+  });
+
   it('should show length of watchlist', async () => {
     const { getByTestId } = render(Watchlist, {
       props: {
