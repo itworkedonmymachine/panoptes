@@ -20,6 +20,8 @@
     display: flex;
     justify-content: space-between;
     text-align: center;
+
+    border-bottom: 1px solid #000000;
   }
 
   .title {
