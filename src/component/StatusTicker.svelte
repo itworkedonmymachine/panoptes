@@ -1,8 +1,26 @@
 <script>
+  import { onDestroy } from 'svelte';
   import StatusTickerItem from './StatusTickerItem.svelte';
+  import { statuspageTickerStores } from '../store/statuspageStore';
 
-  /* eslint-disable-next-line import/prefer-default-export */
   export let statusTickerDatas = [];
+
+  let unsubscribes;
+
+  // if it's not test
+  if (statusTickerDatas.length === 0) {
+    unsubscribes = statuspageTickerStores.forEach((store, i) => {
+      store.subscribe((statusTickerData) => {
+        statusTickerDatas[i] = statusTickerData;
+      });
+    });
+  }
+
+  onDestroy(() => {
+    if (unsubscribes) {
+      unsubscribes.forEach((unsubscribe) => unsubscribe());
+    }
+  });
 </script>
 
 <style>
