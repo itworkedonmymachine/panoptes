@@ -1,7 +1,32 @@
 import { render } from '@testing-library/svelte';
 import Watchlist from '../../src/component/Watchlist.svelte';
 
-const watchlistMockData = ['Platform1', 'Platform2', 'Platform3', 'Platform4'];
+const watchlistMockData = [
+  {
+    platform: 'Test1',
+    fetching: true,
+    minor: false,
+    major: false,
+  },
+  {
+    platform: 'Test2',
+    fetching: false,
+    minor: true,
+    major: false,
+  },
+  {
+    platform: 'Test3',
+    fetching: false,
+    minor: false,
+    major: false,
+  },
+  {
+    platform: 'Test4',
+    fetching: false,
+    minor: false,
+    major: false,
+  },
+];
 
 describe('Render Watchlist', () => {
   it('should render watchlist', async () => {
