@@ -1,7 +1,7 @@
 <script>
   import { onDestroy } from 'svelte';
   import StatusTickerItem from './StatusTickerItem.svelte';
-  import { statuspageTickerStores } from '../store/statuspageStore';
+  import { statuspageSummaryStores } from '../store/statuspageStore';
 
   export let statusTickerDatas = [];
 
@@ -9,7 +9,7 @@
 
   // if it's not test
   if (statusTickerDatas.length === 0) {
-    unsubscribes = statuspageTickerStores.forEach((store, i) => {
+    unsubscribes = statuspageSummaryStores.forEach((store, i) => {
       store.subscribe((statusTickerData) => {
         statusTickerDatas[i] = statusTickerData;
       });

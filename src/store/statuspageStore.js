@@ -41,7 +41,7 @@ const createStatuspageReadableStore = (platform, statuspageId) => {
 export const statuspageStores = platformStatuspageIdpairs.map((pair) =>
   createStatuspageReadableStore(pair.platform, pair.pageId)
 );
-export const statuspageTickerStores = statuspageStores.map((rawStatusStore) =>
+export const statuspageSummaryStores = statuspageStores.map((rawStatusStore) =>
   derived(rawStatusStore, ($rawStatusPair) =>
     getStatusSummaryOf($rawStatusPair)
   )
