@@ -42,7 +42,7 @@ describe('Render Watchlist', () => {
 
     const watchlist = getByTestId('watchlist-length');
 
-    expect(watchlist.textContent).toBe('004');
+    expect(watchlist).toHaveTextContent('004');
   });
 
   it('should render watchlist items', async () => {

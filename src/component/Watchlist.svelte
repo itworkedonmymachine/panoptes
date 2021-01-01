@@ -1,4 +1,6 @@
 <script>
+  import WatchlistItem from './WatchlistItem.svelte';
+
   export let watchlistDatas = [];
 </script>
 
@@ -29,6 +31,8 @@
     <span>Watchlist</span>
   </div>
   <div data-testid="watchlist-contents" class="watchlist-contents">
-    {#each watchlistDatas as watchlistData}<span>{watchlistData}</span>{/each}
+    {#each watchlistDatas as watchlistData}
+      <WatchlistItem platform={watchlistData} />
+    {/each}
   </div>
 </div>
