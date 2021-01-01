@@ -1,8 +1,7 @@
 <script>
   import Header from './container/Header.svelte';
   import StatusTicker from './component/StatusTicker.svelte';
-
-  let name;
+  import Watchlist from './component/Watchlist.svelte';
 </script>
 
 <style>
@@ -23,13 +22,6 @@
     margin: 0 auto;
 
     padding-top: var(--header-height);
-  }
-
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4em;
-    font-weight: 100;
   }
 
   @media (max-width: 759px) {
@@ -67,10 +59,5 @@
 <Header />
 <main>
   <StatusTicker />
-  <h1>Hello {name}!</h1>
-  <p>
-    Visit the
-    <a href="https://svelte.dev/tutorial">Svelte tutorial</a>
-    to learn how to build Svelte apps.
-  </p>
+  <Watchlist />
 </main>

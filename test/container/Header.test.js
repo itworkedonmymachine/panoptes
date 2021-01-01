@@ -2,6 +2,16 @@ import { render } from '@testing-library/svelte';
 import Header from '../../src/container/Header.svelte';
 
 describe('Render Header', () => {
+  it('should have white background', async () => {
+    const { getByTestId } = render(Header);
+
+    const header = getByTestId('header');
+
+    expect(header).toHaveStyle({
+      background: '#FFFFFF',
+    });
+  });
+
   it('should render search, title, setting', async () => {
     const { getByTestId } = render(Header);
 
