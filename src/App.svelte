@@ -33,6 +33,10 @@
   }
 
   @media (max-width: 759px) {
+    :root {
+      --header-height: 80px;
+    }
+
     main {
       display: block;
     }
