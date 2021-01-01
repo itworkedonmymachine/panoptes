@@ -5,11 +5,18 @@
 <style>
   .watchlist {
     text-align: left;
+    padding: 30px 0;
   }
 
   .watchlist-header {
     font-size: var(--font-size-regular);
     font-weight: var(--font-weight-light);
+  }
+
+  @media (max-width: 759px) {
+    .watchlist {
+      padding: 10px 0;
+    }
   }
 </style>
 
