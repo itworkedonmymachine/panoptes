@@ -8,8 +8,6 @@
     left: 0;
     right: 0;
 
-    font-family: Helvetica;
-
     background: #ffffff;
     z-index: 99;
   }
