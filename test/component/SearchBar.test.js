@@ -18,50 +18,38 @@ describe('Render search bar', () => {
 
     const platformlist = getByTestId('platformList');
 
-    expect(platformlist.childElementCount).toBe(3);
-    expect(platformlist.children.item(0).children.item(0)).toHaveAttribute(
-      'value',
-      'GitHub'
-    );
+    expect(platformlist.childElementCount).toBe(18);
+    expect(platformlist.children.item(0)).toHaveAttribute('value', 'GitHub');
   });
 
   it('should render platform list properly if list is given', async () => {
     const { getByTestId } = render(SearchBar, {
       props: {
-        platforms: [
-          { id: 'Docker', status: 'Bad' },
-          { id: 'NPM', status: 'Good' },
+        statusPlatforms: [
+          { platform: 'Docker', major: true, minor: false },
+          { platform: 'NPM', minor: true },
         ],
       },
     });
 
     const platformlist = getByTestId('platformList');
 
-    expect(platformlist.childElementCount).toBe(2);
-    expect(platformlist.children.item(0).children.item(0)).toHaveAttribute(
-      'value',
-      'Docker'
-    );
-    expect(platformlist.children.item(1).children.item(0)).toHaveAttribute(
-      'value',
-      'NPM'
-    );
+    expect(platformlist.childElementCount).toBe(4);
+    expect(platformlist.children.item(0)).toHaveAttribute('value', 'Docker');
+    expect(platformlist.children.item(2)).toHaveAttribute('value', 'NPM');
   });
 
   it('should render platform list properly if user input is given', async () => {
     const { getByTestId } = render(SearchBar, {
       props: {
-        userInput: 'Doc',
+        userInput: 'Dro',
       },
     });
 
     const platformlist = getByTestId('platformList');
 
-    expect(platformlist.childElementCount).toBe(1);
-    expect(platformlist.children.item(0).children.item(0)).toHaveAttribute(
-      'value',
-      'Docker'
-    );
+    expect(platformlist.childElementCount).toBe(2);
+    expect(platformlist.children.item(0)).toHaveAttribute('value', 'Dropbox');
   });
 
   it('should render platform list if user input is given in lowercase', async () => {
@@ -72,10 +60,94 @@ describe('Render search bar', () => {
     });
 
     const platformlist = getByTestId('platformList');
-    expect(platformlist.childElementCount).toBe(1);
-    expect(platformlist.children.item(0).children.item(0)).toHaveAttribute(
-      'value',
-      'GitHub'
-    );
+    expect(platformlist.childElementCount).toBe(2);
+    expect(platformlist.children.item(0)).toHaveAttribute('value', 'GitHub');
+  });
+});
+
+describe('Check searchbar style', () => {
+  it('should have classes for style', async () => {
+    const { getByTestId } = render(SearchBar);
+
+    const column = getByTestId('column');
+    const searchbar = getByTestId('searchbar');
+
+    expect(column).toHaveClass('column');
+    expect(column.children.item(0)).toHaveClass('box');
+    expect(column.children.item(0).children.item(0)).toHaveClass('search_box');
+    expect(searchbar).toHaveClass('searchbar');
+  });
+
+  it('should render column styles', async () => {
+    const { getByTestId } = render(SearchBar);
+
+    const column = getByTestId('column');
+
+    expect(column).toHaveStyle({
+      'background-color': '#F6F792',
+      height: '100vh',
+      width: '100%',
+      float: 'left',
+      margin: 'auto',
+      position: 'relative',
+    });
+  });
+
+  it('should redner box sytles', async () => {
+    const { getByTestId } = render(SearchBar);
+
+    const column = getByTestId('column');
+
+    expect(column.children.item(0)).toHaveStyle({
+      position: 'absolute',
+      left: '0',
+      right: '0',
+      margin: 'auto',
+      top: '20%',
+      transform: 'translateY(-50%)',
+      width: '100%',
+      'text-align': 'center',
+    });
+  });
+
+  it('should render search box sytles', async () => {
+    const { getByTestId } = render(SearchBar);
+
+    const column = getByTestId('column');
+
+    expect(column.children.item(0).children.item(0)).toHaveStyle({
+      width: '280px',
+      position: 'relative',
+      margin: '0 auto',
+    });
+  });
+
+  it('should render seach bar styles', async () => {
+    const { getByTestId } = render(SearchBar);
+
+    const searchbar = getByTestId('searchbar');
+
+    expect(searchbar).toHaveStyle({
+      width: '280px',
+      padding: '20px',
+      'border-color': '#448996',
+      'text-indent': '30px',
+      outline: 'none',
+      border: '5px solid #448996',
+      'border-radius': '5px',
+    });
+  });
+
+  it('should render checkbox and label styles', async () => {
+    const { getByTestId } = render(SearchBar);
+
+    const platformlist = getByTestId('platformList');
+
+    expect(platformlist.children.item(0)).toHaveStyle({
+      display: 'none',
+    });
+    expect(platformlist.children.item(1)).toHaveStyle({
+      cursor: 'pointer',
+    });
   });
 });
