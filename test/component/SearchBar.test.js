@@ -2,16 +2,18 @@ import { render } from '@testing-library/svelte';
 import SearchBar from '../../src/component/SearchBar.svelte';
 
 describe('Render search bar', () => {
-  it('should render platform list properly', async () => {
+  it('should render search bar', async () => {
     const { getByTestId } = render(SearchBar);
 
-    const platformlist = getByTestId('platformList');
+    const searchbar = getByTestId('searchbar');
 
-    expect(platformlist.childElementCount).toBe(18);
-    expect(platformlist.children.item(0)).toHaveAttribute('value', 'GitHub');
+    expect(searchbar).toBeVisible();
+    expect(searchbar).toHaveAttribute('type', 'search');
+    expect(searchbar).toHaveAttribute('placeholder', 'enter platform');
+    expect(searchbar).toBeEnabled();
   });
 
-  it('should render platform list properly if list is given', async () => {
+  it('should render platform list properly', async () => {
     const { getByTestId } = render(SearchBar, {
       props: {
         statusPlatforms: [
