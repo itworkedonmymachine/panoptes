@@ -2,17 +2,6 @@ import { render } from '@testing-library/svelte';
 import SearchBar from '../../src/component/SearchBar.svelte';
 
 describe('Render search bar', () => {
-  it('should render search bar', async () => {
-    const { getByTestId } = render(SearchBar);
-
-    const searchbar = getByTestId('searchbar');
-
-    expect(searchbar).toBeVisible();
-    expect(searchbar).toHaveAttribute('type', 'search');
-    expect(searchbar).toHaveAttribute('placeholder', 'enter platform');
-    expect(searchbar).toBeEnabled();
-  });
-
   it('should render platform list properly', async () => {
     const { getByTestId } = render(SearchBar);
 
@@ -43,6 +32,11 @@ describe('Render search bar', () => {
     const { getByTestId } = render(SearchBar, {
       props: {
         userInput: 'Dro',
+        statusPlatforms: [
+          { platform: 'Docker', major: true, minor: false },
+          { platform: 'NPM', minor: true },
+          { platform: 'Dropbox', major: false, minor: false },
+        ],
       },
     });
 
@@ -56,6 +50,12 @@ describe('Render search bar', () => {
     const { getByTestId } = render(SearchBar, {
       props: {
         userInput: 'github',
+        statusPlatforms: [
+          { platform: 'Docker', major: true, minor: false },
+          { platform: 'NPM', minor: true },
+          { platform: 'Dropbox', major: false, minor: false },
+          { platform: 'GitHub', major: true },
+        ],
       },
     });
 
@@ -70,11 +70,13 @@ describe('Check searchbar style', () => {
     const { getByTestId } = render(SearchBar);
 
     const column = getByTestId('column');
+    const box = getByTestId('box');
+    const searchbox = getByTestId('search_box');
     const searchbar = getByTestId('searchbar');
 
     expect(column).toHaveClass('column');
-    expect(column.children.item(0)).toHaveClass('box');
-    expect(column.children.item(0).children.item(0)).toHaveClass('search_box');
+    expect(box).toHaveClass('box');
+    expect(searchbox).toHaveClass('search_box');
     expect(searchbar).toHaveClass('searchbar');
   });
 
@@ -96,9 +98,8 @@ describe('Check searchbar style', () => {
   it('should redner box sytles', async () => {
     const { getByTestId } = render(SearchBar);
 
-    const column = getByTestId('column');
-
-    expect(column.children.item(0)).toHaveStyle({
+    const box = getByTestId('box');
+    expect(box).toHaveStyle({
       position: 'absolute',
       left: '0',
       right: '0',
@@ -113,9 +114,9 @@ describe('Check searchbar style', () => {
   it('should render search box sytles', async () => {
     const { getByTestId } = render(SearchBar);
 
-    const column = getByTestId('column');
+    const searchBox = getByTestId('search_box');
 
-    expect(column.children.item(0).children.item(0)).toHaveStyle({
+    expect(searchBox).toHaveStyle({
       width: '280px',
       position: 'relative',
       margin: '0 auto',
@@ -139,15 +140,28 @@ describe('Check searchbar style', () => {
   });
 
   it('should render checkbox and label styles', async () => {
-    const { getByTestId } = render(SearchBar);
-
-    const platformlist = getByTestId('platformList');
-
-    expect(platformlist.children.item(0)).toHaveStyle({
-      display: 'none',
+    const { getAllByTestId } = render(SearchBar, {
+      props: {
+        statusPlatforms: [
+          { platform: 'Docker', major: true, minor: false },
+          { platform: 'NPM', minor: true },
+          { platform: 'Dropbox', major: false, minor: false },
+        ],
+      },
     });
-    expect(platformlist.children.item(1)).toHaveStyle({
-      cursor: 'pointer',
+
+    const platformListCheckboxes = getAllByTestId('platformList_checkbox');
+    const platformListLabels = getAllByTestId('platformList_label');
+    platformListCheckboxes.forEach((checkbox) => {
+      expect(checkbox).toHaveStyle({
+        display: 'none',
+      });
+    });
+
+    platformListLabels.forEach((label) => {
+      expect(label).toHaveStyle({
+        cursor: 'pointer',
+      });
     });
   });
 });

@@ -77,13 +77,13 @@
   }
 
   #platforms input[type='checkbox']:checked + label {
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
   }
 </style>
 
 <div class="column" data-testid="column">
-  <div class="box">
-    <div class="search_box">
+  <div class="box" data-testid="box">
+    <div class="search_box" data-testid="search_box">
       <input
         type="search"
         data-testid="searchbar"
@@ -95,10 +95,13 @@
           {#each filteredPlatforms as filteredPlatform}
             <input
               type="checkbox"
-              name="platform"
+              name={filteredPlatform.platform}
               value={filteredPlatform.platform}
-              id={filteredPlatform.platform} />
-            <label for={filteredPlatform.platform}><StatusTickerItem
+              id={filteredPlatform.platform}
+              data-testid="platformList_checkbox" />
+            <label
+              for={filteredPlatform.platform}
+              data-testid="platformList_label"><StatusTickerItem
                 {...filteredPlatform} /></label>
           {/each}
         </form>
