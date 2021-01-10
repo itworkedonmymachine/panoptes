@@ -17,26 +17,6 @@
 </script>
 
 <style>
-  .column {
-    background-color: #f6f792;
-    height: 100vh;
-    width: 100%;
-    float: left;
-    margin: auto;
-    position: relative;
-  }
-
-  .box {
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin: auto;
-    top: 20%;
-    transform: translateY(-50%);
-    width: 100%;
-    text-align: center;
-  }
-
   .search-box {
     width: 280px;
     position: relative;
@@ -44,13 +24,8 @@
   }
 
   .search-bar {
-    width: 280px;
-    padding: 20px;
-    border-color: #448996;
-    text-indent: 30px;
-    outline: none;
-    border: 5px solid #448996;
-    border-radius: 5px;
+    color: #c4c4c4;
+    border: none;
   }
 
   #platforms input[type='checkbox'] {
@@ -66,30 +41,26 @@
   }
 </style>
 
-<div class="column" data-testid="column">
-  <div class="box" data-testid="box">
-    <div class="search-box" data-testid="search-box">
-      <input
-        type="search"
-        data-testid="search-bar"
-        placeholder="enter platform"
-        bind:value={userInput}
-        class="search-bar" />
-      <ul id="platforms">
-        <form data-testid="platform-list">
-          {#each filteredPlatforms as filteredPlatform}
-            <input
-              type="checkbox"
-              name={filteredPlatform}
-              value={filteredPlatform}
-              id={filteredPlatform}
-              data-testid="platform-list checkbox" />
-            <label for={filteredPlatform} data-testid="platform-list label">
-              {filteredPlatform}
-            </label>
-          {/each}
-        </form>
-      </ul>
-    </div>
-  </div>
+<div class="search-box" data-testid="search-box">
+  <input
+    type="search"
+    data-testid="search-bar"
+    placeholder="SEARCH"
+    bind:value={userInput}
+    class="search-bar" />
+  <ul id="platforms">
+    <form data-testid="platform-list">
+      {#each filteredPlatforms as filteredPlatform}
+        <input
+          type="checkbox"
+          name={filteredPlatform}
+          value={filteredPlatform}
+          id={filteredPlatform}
+          data-testid="platform-list checkbox" />
+        <label for={filteredPlatform} data-testid="platform-list label">
+          {filteredPlatform}
+        </label>
+      {/each}
+    </form>
+  </ul>
 </div>
