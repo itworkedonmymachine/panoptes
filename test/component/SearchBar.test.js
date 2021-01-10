@@ -1,169 +1,243 @@
-import { render } from '@testing-library/svelte';
+import { fireEvent, render } from '@testing-library/svelte';
 import SearchBar from '../../src/component/SearchBar.svelte';
 
 describe('Render search bar', () => {
   it('should render search bar', async () => {
     const { getByTestId } = render(SearchBar);
 
-    const searchbar = getByTestId('searchbar');
+    const searchBar = getByTestId('search-bar');
 
-    expect(searchbar).toBeVisible();
-    expect(searchbar).toHaveAttribute('type', 'search');
-    expect(searchbar).toHaveAttribute('placeholder', 'enter platform');
-    expect(searchbar).toBeEnabled();
+    expect(searchBar).toBeVisible();
+    expect(searchBar).toHaveAttribute('type', 'search');
+    expect(searchBar).toHaveAttribute('placeholder', 'SEARCH');
+    expect(searchBar).toBeEnabled();
   });
 
   it('should render platform list properly', async () => {
     const { getByTestId } = render(SearchBar, {
       props: {
-        statusPlatforms: [
-          { platform: 'Docker', major: true, minor: false },
-          { platform: 'NPM', minor: true },
-        ],
+        statusPlatforms: ['Docker', 'NPM'],
       },
     });
 
-    const platformlist = getByTestId('platformList');
+    const platformList = getByTestId('platform-list');
 
-    expect(platformlist.childElementCount).toBe(4);
-    expect(platformlist.children.item(0)).toHaveAttribute('value', 'Docker');
-    expect(platformlist.children.item(2)).toHaveAttribute('value', 'NPM');
+    expect(platformList.childElementCount).toBe(2);
+    expect(platformList.children.item(0)).toHaveTextContent('Docker');
+    expect(platformList.children.item(1)).toHaveTextContent('NPM');
   });
 
   it('should render platform list properly if user input is given', async () => {
     const { getByTestId } = render(SearchBar, {
       props: {
         userInput: 'Dro',
-        statusPlatforms: [
-          { platform: 'Docker', major: true, minor: false },
-          { platform: 'NPM', minor: true },
-          { platform: 'Dropbox', major: false, minor: false },
-        ],
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
       },
     });
 
-    const platformlist = getByTestId('platformList');
+    const platformList = getByTestId('platform-list');
 
-    expect(platformlist.childElementCount).toBe(2);
-    expect(platformlist.children.item(0)).toHaveAttribute('value', 'Dropbox');
+    expect(platformList.childElementCount).toBe(1);
+    expect(platformList.children.item(0)).toHaveTextContent('Dropbox');
   });
 
   it('should render platform list if user input is given in lowercase', async () => {
     const { getByTestId } = render(SearchBar, {
       props: {
         userInput: 'github',
-        statusPlatforms: [
-          { platform: 'Docker', major: true, minor: false },
-          { platform: 'NPM', minor: true },
-          { platform: 'Dropbox', major: false, minor: false },
-          { platform: 'GitHub', major: true },
-        ],
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox', 'GitHub'],
       },
     });
 
-    const platformlist = getByTestId('platformList');
-    expect(platformlist.childElementCount).toBe(2);
-    expect(platformlist.children.item(0)).toHaveAttribute('value', 'GitHub');
+    const platformList = getByTestId('platform-list');
+    expect(platformList.childElementCount).toBe(1);
+    expect(platformList.children.item(0)).toHaveTextContent('GitHub');
   });
 });
 
-describe('Check searchbar style', () => {
+describe('Check Search Bar style', () => {
   it('should have classes for style', async () => {
     const { getByTestId } = render(SearchBar);
 
-    const column = getByTestId('column');
-    const box = getByTestId('box');
-    const searchbox = getByTestId('search_box');
-    const searchbar = getByTestId('searchbar');
+    const searchContainer = getByTestId('search-container');
+    const searchBar = getByTestId('search-bar');
 
-    expect(column).toHaveClass('column');
-    expect(box).toHaveClass('box');
-    expect(searchbox).toHaveClass('search_box');
-    expect(searchbar).toHaveClass('searchbar');
+    expect(searchContainer).toHaveClass('search-container');
+    expect(searchBar).toHaveClass('search-bar');
   });
 
-  it('should render column styles', async () => {
+  it('should render search container styles', async () => {
     const { getByTestId } = render(SearchBar);
 
-    const column = getByTestId('column');
+    const searchContainer = getByTestId('search-container');
 
-    expect(column).toHaveStyle({
-      'background-color': '#F6F792',
-      height: '100vh',
-      width: '100%',
-      float: 'left',
-      margin: 'auto',
-      position: 'relative',
-    });
-  });
-
-  it('should redner box sytles', async () => {
-    const { getByTestId } = render(SearchBar);
-
-    const box = getByTestId('box');
-    expect(box).toHaveStyle({
-      position: 'absolute',
-      left: '0',
-      right: '0',
-      margin: 'auto',
-      top: '20%',
-      transform: 'translateY(-50%)',
-      width: '100%',
-      'text-align': 'center',
-    });
-  });
-
-  it('should render search box sytles', async () => {
-    const { getByTestId } = render(SearchBar);
-
-    const searchBox = getByTestId('search_box');
-
-    expect(searchBox).toHaveStyle({
-      width: '280px',
+    expect(searchContainer).toHaveStyle({
       position: 'relative',
       margin: '0 auto',
     });
   });
 
-  it('should render seach bar styles', async () => {
+  it('should render search bar component have default font setting as large & light', async () => {
     const { getByTestId } = render(SearchBar);
 
-    const searchbar = getByTestId('searchbar');
+    const searchContainer = getByTestId('search-container');
 
-    expect(searchbar).toHaveStyle({
-      width: '280px',
-      padding: '20px',
-      'border-color': '#448996',
-      'text-indent': '30px',
-      outline: 'none',
-      border: '5px solid #448996',
-      'border-radius': '5px',
+    expect(searchContainer).toHaveStyle({
+      'font-size': 'var(--font-size-large)',
+      'font-weight': 'var(--font-weight-light)',
     });
   });
 
-  it('should render checkbox and label styles', async () => {
-    const { getAllByTestId } = render(SearchBar, {
+  it('should search bar render input w/ font setting as light', async () => {
+    const { getByTestId } = render(SearchBar);
+
+    const searchBar = getByTestId('search-bar');
+
+    expect(searchBar).toHaveStyle({
+      'font-weight': 'var(--font-weight-light)',
+    });
+  });
+
+  it('should search bar have full width but clear button', async () => {
+    const { getByTestId } = render(SearchBar);
+
+    const searchBar = getByTestId('search-bar');
+
+    expect(searchBar).toHaveStyle({
+      flex: '1',
+    });
+  });
+
+  it('should search bar have no border, outline, padding', async () => {
+    const { getByTestId } = render(SearchBar);
+
+    const searchBar = getByTestId('search-bar');
+
+    expect(searchBar).toHaveStyle({
+      border: 'none',
+      outline: 'none',
+      padding: '0',
+    });
+  });
+
+  it('should have no margin or padding for platform list', () => {
+    const { getByTestId } = render(SearchBar, {
       props: {
-        statusPlatforms: [
-          { platform: 'Docker', major: true, minor: false },
-          { platform: 'NPM', minor: true },
-          { platform: 'Dropbox', major: false, minor: false },
-        ],
+        userInput: 'Dro',
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
       },
     });
 
-    const platformListCheckboxes = getAllByTestId('platformList_checkbox');
-    const platformListLabels = getAllByTestId('platformList_label');
-    platformListCheckboxes.forEach((checkbox) => {
-      expect(checkbox).toHaveStyle({
-        display: 'none',
-      });
+    const platformList = getByTestId('platform-list');
+
+    expect(platformList).toHaveStyle({
+      padding: '0',
+      margin: '0',
+    });
+  });
+
+  it('should cursor be pointer when hover on clear button', async () => {
+    const { getByTestId } = render(SearchBar, {
+      props: {
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
+      },
     });
 
-    platformListLabels.forEach((label) => {
+    const clearButton = getByTestId('clear-button');
+
+    expect(clearButton).toHaveStyle({
+      cursor: 'pointer',
+    });
+  });
+
+  it('should cursor be pointer when hover on platform', async () => {
+    const { getAllByTestId } = render(SearchBar, {
+      props: {
+        userInput: 'Dro',
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
+      },
+    });
+
+    const platforms = getAllByTestId('platform');
+
+    platforms.forEach((label) => {
       expect(label).toHaveStyle({
         cursor: 'pointer',
       });
     });
+  });
+
+  it('should font for platform have fixed line-height', async () => {
+    const { getAllByTestId } = render(SearchBar, {
+      props: {
+        userInput: 'Dro',
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
+      },
+    });
+
+    const platforms = getAllByTestId('platform');
+
+    platforms.forEach((label) => {
+      expect(label).toHaveStyle({
+        'line-height': '1.2',
+      });
+    });
+  });
+
+  it('should font for selected platform be bold weight', async () => {
+    const { getByText } = render(SearchBar, {
+      props: {
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
+      },
+    });
+
+    const dropbox = getByText('Dropbox');
+
+    await fireEvent.click(dropbox);
+
+    expect(dropbox).toHaveClass('selected');
+    expect(dropbox).toHaveStyle({
+      'font-weight': 'var(--font-weight-bold)',
+    });
+  });
+
+  it('should undo-select-icon rendered when platform is selected', async () => {
+    const { getByText } = render(SearchBar, {
+      props: {
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
+      },
+    });
+
+    const dropbox = getByText('Dropbox');
+
+    await fireEvent.click(dropbox);
+
+    expect(dropbox).toHaveClass('selected');
+    expect(dropbox.lastElementChild).toHaveClass('undo-select-icon');
+  });
+
+  it('should clear selection when clear is clicked', async () => {
+    const { getByTestId, getAllByTestId } = render(SearchBar, {
+      props: {
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox', 'GitHub', 'Test'],
+      },
+    });
+
+    const platforms = getAllByTestId('platform');
+    const clearButton = getByTestId('clear-button');
+
+    await fireEvent.click(platforms[0]);
+    await fireEvent.click(platforms[1]);
+    await fireEvent.click(platforms[3]);
+
+    expect(platforms[0]).toHaveClass('selected');
+    expect(platforms[1]).toHaveClass('selected');
+    expect(platforms[3]).toHaveClass('selected');
+
+    await fireEvent.click(clearButton);
+
+    expect(platforms[0]).not.toHaveClass('selected');
+    expect(platforms[1]).not.toHaveClass('selected');
+    expect(platforms[3]).not.toHaveClass('selected');
   });
 });

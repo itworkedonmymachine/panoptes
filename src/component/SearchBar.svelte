@@ -1,112 +1,146 @@
 <script>
-  import { onDestroy } from 'svelte';
-  import StatusTickerItem from './StatusTickerItem.svelte';
-  import statusStorePool from '../store/statusStorePool';
+  import { platforms } from '../store/statusStorePool';
 
-  let unsubscribes;
   export let statusPlatforms = []; // any[]
+  let selectedPlatforms = [];
 
   export let userInput = '';
   // in real case
   if (statusPlatforms.length === 0) {
-    unsubscribes = Object.keys(statusStorePool).forEach((platform, i) => {
-      const store = statusStorePool[platform].summarizedStatusStore;
-      store.subscribe((statusPlatform) => {
-        statusPlatforms[i] = statusPlatform;
-      });
-    });
+    statusPlatforms = platforms;
   }
 
-  onDestroy(() => {
-    if (unsubscribes) {
-      unsubscribes.forEach((unsubscribe) => unsubscribe());
+  const handlePlatformClick = (platform) => {
+    console.log(selectedPlatforms, platform);
+    if (selectedPlatforms.includes(platform)) {
+      selectedPlatforms = selectedPlatforms.filter((p) => p !== platform);
+      return;
     }
-  });
+    selectedPlatforms = [...selectedPlatforms, platform];
+  };
+
+  const handleClear = () => {
+    selectedPlatforms = [];
+  };
 
   $: filteredPlatforms = userInput
     ? statusPlatforms.filter((statusPlatform) =>
-        statusPlatform.platform
-          .toLowerCase()
-          .startsWith(userInput.toLowerCase())
+        statusPlatform.toLowerCase().startsWith(userInput.toLowerCase())
       )
     : statusPlatforms;
+
+  $: isPlatformSelectd = (platform) => selectedPlatforms.includes(platform);
 </script>
 
 <style>
-  .column {
-    background-color: #f6f792;
-    height: 100vh;
-    width: 100%;
-    float: left;
-    margin: auto;
-    position: relative;
-  }
-
-  .box {
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin: auto;
-    top: 20%;
-    transform: translateY(-50%);
-    width: 100%;
-    text-align: center;
-  }
-
-  .search_box {
-    width: 280px;
+  .search-container {
     position: relative;
     margin: 0 auto;
+
+    font-size: var(--font-size-large);
+    font-weight: var(--font-weight-light);
   }
 
-  .searchbar {
-    width: 280px;
-    padding: 20px;
-    border-color: #448996;
-    text-indent: 30px;
+  .search-bar-container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .search-bar {
+    font-weight: var(--font-weight-light);
+
+    border: none;
     outline: none;
-    border: 5px solid #448996;
-    border-radius: 5px;
+
+    padding: 0;
+    width: 100%;
+    flex: 1;
   }
 
-  #platforms input[type='checkbox'] {
-    display: none;
+  .search-bar::placeholder {
+    color: #c4c4c4;
+    font-weight: var(--font-weight-light);
   }
 
-  #platforms label {
+  .clear-button {
     cursor: pointer;
   }
 
-  #platforms input[type='checkbox']:checked + label {
+  .platform-list {
+    padding: 0;
+    margin: 0;
+  }
+
+  .platform {
+    position: relative;
+    cursor: pointer;
+    line-height: 1.2;
+  }
+
+  .undo-select-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .selected {
     font-weight: var(--font-weight-bold);
+  }
+
+  @media (max-width: 759px) {
+    .search-bar-container {
+      font-size: 0.9em;
+    }
+
+    .undo-select-icon {
+      display: none;
+    }
+  }
+
+  /* remove clear icon in search bar */
+  /* for chrome */
+  input[type='search']::-webkit-search-cancel-button,
+  input[type='search']::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  /* for ie */
+  input[type='search']::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+  input[type='search']::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
   }
 </style>
 
-<div class="column" data-testid="column">
-  <div class="box" data-testid="box">
-    <div class="search_box" data-testid="search_box">
-      <input
-        type="search"
-        data-testid="searchbar"
-        placeholder="enter platform"
-        bind:value={userInput}
-        class="searchbar" />
-      <ul id="platforms">
-        <form data-testid="platformList">
-          {#each filteredPlatforms as filteredPlatform}
-            <input
-              type="checkbox"
-              name={filteredPlatform.platform}
-              value={filteredPlatform.platform}
-              id={filteredPlatform.platform}
-              data-testid="platformList_checkbox" />
-            <label
-              for={filteredPlatform.platform}
-              data-testid="platformList_label"><StatusTickerItem
-                {...filteredPlatform} /></label>
-          {/each}
-        </form>
-      </ul>
+<div class="search-container" data-testid="search-container">
+  <div class="search-bar-container">
+    <input
+      type="search"
+      data-testid="search-bar"
+      placeholder="SEARCH"
+      bind:value={userInput}
+      class="search-bar" />
+    <div class="clear-button" data-testid="clear-button" on:click={handleClear}>
+      CLEAR
     </div>
   </div>
+  <dl data-testid="platform-list" class="platform-list">
+    {#each filteredPlatforms as platform}
+      <dt
+        data-testid="platform"
+        class="platform"
+        on:click={handlePlatformClick(platform)}
+        class:selected={isPlatformSelectd(platform)}>
+        {platform}
+        {#if isPlatformSelectd(platform)}
+          <div class="undo-select-icon">X</div>
+        {/if}
+      </dt>
+    {/each}
+  </dl>
 </div>
