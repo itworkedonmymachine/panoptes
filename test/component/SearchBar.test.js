@@ -55,7 +55,7 @@ describe('Render search bar', () => {
   });
 });
 
-describe('Check searchBar style', () => {
+describe('Check Search Bar style', () => {
   it('should have classes for style', async () => {
     const { getByTestId } = render(SearchBar);
 
@@ -72,20 +72,41 @@ describe('Check searchBar style', () => {
     const searchContainer = getByTestId('search-container');
 
     expect(searchContainer).toHaveStyle({
-      width: '280px',
       position: 'relative',
       margin: '0 auto',
     });
   });
 
-  it('should render search bar styles', async () => {
+  it('should search bar have width as container', async () => {
+    const { getByTestId } = render(SearchBar);
+
+    const searchBar = getByTestId('search-bar');
+
+    expect(searchBar).toHaveStyle({
+      width: '100%',
+    });
+  });
+
+  it('should search bar have no border, outline, padding', async () => {
     const { getByTestId } = render(SearchBar);
 
     const searchBar = getByTestId('search-bar');
 
     expect(searchBar).toHaveStyle({
       border: 'none',
-      color: '#C4C4C4',
+      outline: 'none',
+      padding: '0',
+    });
+  });
+
+  it('should search bar have large font size & light weight', async () => {
+    const { getByTestId } = render(SearchBar);
+
+    const searchBar = getByTestId('search-bar');
+
+    expect(searchBar).toHaveStyle({
+      'font-size': 'var(--font-size-large)',
+      'font-weight': 'var(--font-weight-light)',
     });
   });
 

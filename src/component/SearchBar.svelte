@@ -18,14 +18,23 @@
 
 <style>
   .search-container {
-    width: 280px;
     position: relative;
     margin: 0 auto;
   }
 
   .search-bar {
-    color: #c4c4c4;
+    font-size: var(--font-size-large);
+    font-weight: var(--font-weight-light);
+
     border: none;
+    outline: none;
+
+    padding: 0;
+    width: 100%;
+  }
+
+  .search-bar::placeholder {
+    color: #c4c4c4;
   }
 
   #platforms input[type='checkbox'] {
