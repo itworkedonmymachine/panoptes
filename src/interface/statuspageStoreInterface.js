@@ -2,7 +2,7 @@ import PlatformStatus from './storeInterface';
 import {
   createRawStatusStore,
   createSummarizedStatusStore,
-} from '../helper/statuspageHelper';
+} from '../store/statuspageStore';
 
 class StatuspageStore extends PlatformStatus {
   constructor(platform, pageId) {
