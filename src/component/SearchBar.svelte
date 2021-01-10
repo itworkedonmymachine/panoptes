@@ -55,9 +55,16 @@
   }
 
   .platform {
+    position: relative;
     cursor: pointer;
     font-size: var(--font-size-large);
     font-weight: var(--font-weight-light);
+  }
+
+  .undo-select-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 
   .selected {
@@ -80,6 +87,9 @@
         on:click={handlePlatformClick(platform)}
         class:selected={isPlatformSelectd(platform)}>
         {platform}
+        {#if isPlatformSelectd(platform)}
+          <div class="undo-select-icon">X</div>
+        {/if}
       </dt>
     {/each}
   </dl>

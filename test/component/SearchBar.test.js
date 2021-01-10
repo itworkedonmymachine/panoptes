@@ -177,4 +177,19 @@ describe('Check Search Bar style', () => {
       'font-weight': 'var(--font-weight-bold)',
     });
   });
+
+  it('should undo-select-icon rendered when platform is selected', async () => {
+    const { getByText } = render(SearchBar, {
+      props: {
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
+      },
+    });
+
+    const dropbox = getByText('Dropbox');
+
+    await fireEvent.click(dropbox);
+
+    expect(dropbox).toHaveClass('selected');
+    expect(dropbox.lastElementChild).toHaveClass('undo-select-icon');
+  });
 });
