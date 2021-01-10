@@ -36,6 +36,9 @@
   .search-container {
     position: relative;
     margin: 0 auto;
+
+    font-size: var(--font-size-large);
+    font-weight: var(--font-weight-light);
   }
 
   .search-bar-container {
@@ -44,9 +47,6 @@
   }
 
   .search-bar {
-    font-size: var(--font-size-large);
-    font-weight: var(--font-weight-light);
-
     border: none;
     outline: none;
 
@@ -57,13 +57,11 @@
 
   .search-bar::placeholder {
     color: #c4c4c4;
+    font-weight: var(--font-weight-light);
   }
 
   .clear-button {
     cursor: pointer;
-
-    font-size: var(--font-size-large);
-    font-weight: var(--font-weight-light);
   }
 
   .platform-list {
@@ -74,8 +72,6 @@
   .platform {
     position: relative;
     cursor: pointer;
-    font-size: var(--font-size-large);
-    font-weight: var(--font-weight-light);
     line-height: 1.2;
   }
 

@@ -77,6 +77,17 @@ describe('Check Search Bar style', () => {
     });
   });
 
+  it('should render search bar component have default font setting as large & light', async () => {
+    const { getByTestId } = render(SearchBar);
+
+    const searchContainer = getByTestId('search-container');
+
+    expect(searchContainer).toHaveStyle({
+      'font-size': 'var(--font-size-large)',
+      'font-weight': 'var(--font-weight-light)',
+    });
+  });
+
   it('should search bar have full width but clear button', async () => {
     const { getByTestId } = render(SearchBar);
 
@@ -96,17 +107,6 @@ describe('Check Search Bar style', () => {
       border: 'none',
       outline: 'none',
       padding: '0',
-    });
-  });
-
-  it('should search bar have large font size & light weight', async () => {
-    const { getByTestId } = render(SearchBar);
-
-    const searchBar = getByTestId('search-bar');
-
-    expect(searchBar).toHaveStyle({
-      'font-size': 'var(--font-size-large)',
-      'font-weight': 'var(--font-weight-light)',
     });
   });
 
@@ -157,7 +157,7 @@ describe('Check Search Bar style', () => {
     });
   });
 
-  it('should font for platform be large & light weight', async () => {
+  it('should font for platform have fixed line-height', async () => {
     const { getAllByTestId } = render(SearchBar, {
       props: {
         userInput: 'Dro',
@@ -169,8 +169,6 @@ describe('Check Search Bar style', () => {
 
     platforms.forEach((label) => {
       expect(label).toHaveStyle({
-        'font-size': 'var(--font-size-large)',
-        'font-weight': 'var(--font-weight-light)',
         'line-height': '1.2',
       });
     });
