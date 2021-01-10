@@ -9,7 +9,7 @@
     left: 0;
     right: 0;
 
-    background: #c4c4c4;
+    background: #ffffff;
     opacity: 0.9;
 
     z-index: 139;
