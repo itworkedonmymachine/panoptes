@@ -1,5 +1,7 @@
-import { readable, derived } from 'svelte/store';
-import { getStatusOf, getStatusTickerDataOf } from '../helper/statuspageHelper';
+import {
+  createRawStatusStore,
+  createSummarizedStatusStore,
+} from '../helper/statuspageHelper';
 
 const generatePair = (platform, pageId) => ({
   platform,
@@ -18,31 +20,9 @@ const platformStatuspageIdpairs = [
   generatePair('Datadog', '1k6wzpspjf99'),
 ];
 
-const storeValueOf = (platform, status = null) => ({ platform, status });
-
-const createStatuspageReadableStore = (platform, statuspageId) => {
-  const statuspageReadableStore = readable(
-    storeValueOf(platform),
-    async (set) => {
-      const updateStatus = async () => {
-        const status = await getStatusOf(statuspageId);
-        set(storeValueOf(platform, status));
-      };
-
-      await updateStatus();
-      const interval = setInterval(updateStatus, 90_000);
-      return () => clearInterval(interval);
-    }
-  );
-
-  return statuspageReadableStore;
-};
-
 export const statuspageStores = platformStatuspageIdpairs.map((pair) =>
-  createStatuspageReadableStore(pair.platform, pair.pageId)
+  createRawStatusStore(pair.platform, pair.pageId)
 );
 export const statuspageTickerStores = statuspageStores.map((rawStatusStore) =>
-  derived(rawStatusStore, ($rawStatusPair) =>
-    getStatusTickerDataOf($rawStatusPair)
-  )
+  createSummarizedStatusStore(rawStatusStore)
 );
