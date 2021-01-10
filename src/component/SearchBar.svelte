@@ -17,7 +17,7 @@
 </script>
 
 <style>
-  .search-box {
+  .search-container {
     width: 280px;
     position: relative;
     margin: 0 auto;
@@ -41,7 +41,7 @@
   }
 </style>
 
-<div class="search-box" data-testid="search-box">
+<div class="search-container" data-testid="search-container">
   <input
     type="search"
     data-testid="search-bar"

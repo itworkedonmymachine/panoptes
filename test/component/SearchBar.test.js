@@ -59,19 +59,19 @@ describe('Check searchBar style', () => {
   it('should have classes for style', async () => {
     const { getByTestId } = render(SearchBar);
 
-    const searchBox = getByTestId('search-box');
+    const searchContainer = getByTestId('search-container');
     const searchBar = getByTestId('search-bar');
 
-    expect(searchBox).toHaveClass('search-box');
+    expect(searchContainer).toHaveClass('search-container');
     expect(searchBar).toHaveClass('search-bar');
   });
 
-  it('should render search box styles', async () => {
+  it('should render search container styles', async () => {
     const { getByTestId } = render(SearchBar);
 
-    const searchBox = getByTestId('search-box');
+    const searchContainer = getByTestId('search-container');
 
-    expect(searchBox).toHaveStyle({
+    expect(searchContainer).toHaveStyle({
       width: '280px',
       position: 'relative',
       margin: '0 auto',
