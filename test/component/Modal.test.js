@@ -55,9 +55,9 @@ describe('Render Modal', () => {
     const overlay = getByTestId('overlay');
     const container = getByTestId('container');
     const overlayStyle = getComputedStyle(overlay);
-    const conatinerStyle = getComputedStyle(container);
+    const containerStyle = getComputedStyle(container);
     const overlayZIndex = parseInt(overlayStyle.zIndex, 10);
-    const containerZIndex = parseInt(conatinerStyle.zIndex, 10);
+    const containerZIndex = parseInt(containerStyle.zIndex, 10);
 
     expect(containerZIndex).toBeGreaterThan(overlayZIndex);
   });
