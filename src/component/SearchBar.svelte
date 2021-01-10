@@ -59,6 +59,7 @@
     cursor: pointer;
     font-size: var(--font-size-large);
     font-weight: var(--font-weight-light);
+    line-height: 1.2;
   }
 
   .undo-select-icon {

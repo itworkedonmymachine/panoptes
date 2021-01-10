@@ -157,6 +157,7 @@ describe('Check Search Bar style', () => {
       expect(label).toHaveStyle({
         'font-size': 'var(--font-size-large)',
         'font-weight': 'var(--font-weight-light)',
+        'line-height': '1.2',
       });
     });
   });
