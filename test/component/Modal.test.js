@@ -1,4 +1,4 @@
-import { render } from '@testing-library/svelte';
+import { fireEvent, render } from '@testing-library/svelte';
 import Modal from '../../src/component/Modal.svelte';
 import ModalSlotTest from './ModalSlotTest.svelte';
 
@@ -60,6 +60,42 @@ describe('Render Modal', () => {
     const containerZIndex = parseInt(containerStyle.zIndex, 10);
 
     expect(containerZIndex).toBeGreaterThan(overlayZIndex);
+  });
+});
+
+describe('Render Cancel button', () => {
+  it('should cancel button be visible', () => {
+    const { getByTestId } = render(Modal);
+
+    const cancelButton = getByTestId('cancel-button');
+
+    expect(cancelButton).toBeVisible();
+  });
+
+  it('should render cancel button at bottom of button container', () => {
+    const { getByTestId } = render(Modal);
+
+    const cancelButton = getByTestId('cancel-button');
+    const cancelButtonContainer = getByTestId('cancel-button-container');
+
+    expect(cancelButtonContainer).toHaveStyle({
+      position: 'relative',
+    });
+    expect(cancelButton).toHaveStyle({
+      position: 'absolute',
+      bottom: '0',
+    });
+  });
+
+  it('should close modal if cancel button is clicked', async () => {
+    const { getByTestId } = render(Modal);
+
+    const cancelButton = getByTestId('cancel-button');
+    const overlay = getByTestId('overlay');
+
+    await fireEvent.click(cancelButton);
+
+    expect(overlay).not.toBeVisible();
   });
 });
 
