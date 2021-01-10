@@ -19,6 +19,10 @@
     selectedPlatforms = [...selectedPlatforms, platform];
   };
 
+  const handleClear = () => {
+    selectedPlatforms = [];
+  };
+
   $: filteredPlatforms = userInput
     ? statusPlatforms.filter((statusPlatform) =>
         statusPlatform.toLowerCase().startsWith(userInput.toLowerCase())
@@ -34,6 +38,11 @@
     margin: 0 auto;
   }
 
+  .search-bar-container {
+    display: flex;
+    flex-direction: row;
+  }
+
   .search-bar {
     font-size: var(--font-size-large);
     font-weight: var(--font-weight-light);
@@ -43,10 +52,18 @@
 
     padding: 0;
     width: 100%;
+    flex: 1;
   }
 
   .search-bar::placeholder {
     color: #c4c4c4;
+  }
+
+  .clear-button {
+    cursor: pointer;
+
+    font-size: var(--font-size-large);
+    font-weight: var(--font-weight-light);
   }
 
   .platform-list {
@@ -99,12 +116,17 @@
 </style>
 
 <div class="search-container" data-testid="search-container">
-  <input
-    type="search"
-    data-testid="search-bar"
-    placeholder="SEARCH"
-    bind:value={userInput}
-    class="search-bar" />
+  <div class="search-bar-container">
+    <input
+      type="search"
+      data-testid="search-bar"
+      placeholder="SEARCH"
+      bind:value={userInput}
+      class="search-bar" />
+    <div class="clear-button" data-testid="clear-button" on:click={handleClear}>
+      CLEAR
+    </div>
+  </div>
   <dl data-testid="platform-list" class="platform-list">
     {#each filteredPlatforms as platform}
       <dt

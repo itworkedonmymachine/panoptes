@@ -77,13 +77,13 @@ describe('Check Search Bar style', () => {
     });
   });
 
-  it('should search bar have width as container', async () => {
+  it('should search bar have full width but clear button', async () => {
     const { getByTestId } = render(SearchBar);
 
     const searchBar = getByTestId('search-bar');
 
     expect(searchBar).toHaveStyle({
-      width: '100%',
+      flex: '1',
     });
   });
 
@@ -123,6 +123,20 @@ describe('Check Search Bar style', () => {
     expect(platformList).toHaveStyle({
       padding: '0',
       margin: '0',
+    });
+  });
+
+  it('should cursor be pointer when hover on clear button', async () => {
+    const { getByTestId } = render(SearchBar, {
+      props: {
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
+      },
+    });
+
+    const clearButton = getByTestId('clear-button');
+
+    expect(clearButton).toHaveStyle({
+      cursor: 'pointer',
     });
   });
 
@@ -192,5 +206,30 @@ describe('Check Search Bar style', () => {
 
     expect(dropbox).toHaveClass('selected');
     expect(dropbox.lastElementChild).toHaveClass('undo-select-icon');
+  });
+
+  it('should clear selection when clear is clicked', async () => {
+    const { getByTestId, getAllByTestId } = render(SearchBar, {
+      props: {
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox', 'GitHub', 'Test'],
+      },
+    });
+
+    const platforms = getAllByTestId('platform');
+    const clearButton = getByTestId('clear-button');
+
+    await fireEvent.click(platforms[0]);
+    await fireEvent.click(platforms[1]);
+    await fireEvent.click(platforms[3]);
+
+    expect(platforms[0]).toHaveClass('selected');
+    expect(platforms[1]).toHaveClass('selected');
+    expect(platforms[3]).toHaveClass('selected');
+
+    await fireEvent.click(clearButton);
+
+    expect(platforms[0]).not.toHaveClass('selected');
+    expect(platforms[1]).not.toHaveClass('selected');
+    expect(platforms[3]).not.toHaveClass('selected');
   });
 });
