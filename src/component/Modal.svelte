@@ -14,8 +14,7 @@
     left: 0;
     right: 0;
 
-    background: #ffffff;
-    opacity: 0.9;
+    background: rgba(255, 255, 255, 0.9);
 
     z-index: 139;
   }

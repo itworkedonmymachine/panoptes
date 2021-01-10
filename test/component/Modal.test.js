@@ -17,23 +17,13 @@ describe('Render Modal overlay', () => {
     });
   });
 
-  it('should overlay have white background color', () => {
+  it('should overlay have white background color w/ little transparency', () => {
     const { getByTestId } = render(Modal);
 
     const overlay = getByTestId('overlay');
 
     expect(overlay).toHaveStyle({
-      background: '#FFFFFF',
-    });
-  });
-
-  it('should overlay have little transparency', () => {
-    const { getByTestId } = render(Modal);
-
-    const overlay = getByTestId('overlay');
-
-    expect(overlay).toHaveStyle({
-      opacity: 0.9,
+      background: 'rgba(255, 255, 255, 0.9)',
     });
   });
 
