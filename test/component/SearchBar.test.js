@@ -5,12 +5,12 @@ describe('Render search bar', () => {
   it('should render search bar', async () => {
     const { getByTestId } = render(SearchBar);
 
-    const searchbar = getByTestId('searchbar');
+    const searchBar = getByTestId('search-bar');
 
-    expect(searchbar).toBeVisible();
-    expect(searchbar).toHaveAttribute('type', 'search');
-    expect(searchbar).toHaveAttribute('placeholder', 'enter platform');
-    expect(searchbar).toBeEnabled();
+    expect(searchBar).toBeVisible();
+    expect(searchBar).toHaveAttribute('type', 'search');
+    expect(searchBar).toHaveAttribute('placeholder', 'enter platform');
+    expect(searchBar).toBeEnabled();
   });
 
   it('should render platform list properly', async () => {
@@ -20,11 +20,11 @@ describe('Render search bar', () => {
       },
     });
 
-    const platformlist = getByTestId('platformList');
+    const platformList = getByTestId('platform-list');
 
-    expect(platformlist.childElementCount).toBe(4);
-    expect(platformlist.children.item(0)).toHaveAttribute('value', 'Docker');
-    expect(platformlist.children.item(2)).toHaveAttribute('value', 'NPM');
+    expect(platformList.childElementCount).toBe(4);
+    expect(platformList.children.item(0)).toHaveAttribute('value', 'Docker');
+    expect(platformList.children.item(2)).toHaveAttribute('value', 'NPM');
   });
 
   it('should render platform list properly if user input is given', async () => {
@@ -35,10 +35,10 @@ describe('Render search bar', () => {
       },
     });
 
-    const platformlist = getByTestId('platformList');
+    const platformList = getByTestId('platform-list');
 
-    expect(platformlist.childElementCount).toBe(2);
-    expect(platformlist.children.item(0)).toHaveAttribute('value', 'Dropbox');
+    expect(platformList.childElementCount).toBe(2);
+    expect(platformList.children.item(0)).toHaveAttribute('value', 'Dropbox');
   });
 
   it('should render platform list if user input is given in lowercase', async () => {
@@ -49,25 +49,25 @@ describe('Render search bar', () => {
       },
     });
 
-    const platformlist = getByTestId('platformList');
-    expect(platformlist.childElementCount).toBe(2);
-    expect(platformlist.children.item(0)).toHaveAttribute('value', 'GitHub');
+    const platformList = getByTestId('platform-list');
+    expect(platformList.childElementCount).toBe(2);
+    expect(platformList.children.item(0)).toHaveAttribute('value', 'GitHub');
   });
 });
 
-describe('Check searchbar style', () => {
+describe('Check searchBar style', () => {
   it('should have classes for style', async () => {
     const { getByTestId } = render(SearchBar);
 
     const column = getByTestId('column');
     const box = getByTestId('box');
-    const searchbox = getByTestId('search_box');
-    const searchbar = getByTestId('searchbar');
+    const searchBox = getByTestId('search-box');
+    const searchBar = getByTestId('search-bar');
 
     expect(column).toHaveClass('column');
     expect(box).toHaveClass('box');
-    expect(searchbox).toHaveClass('search_box');
-    expect(searchbar).toHaveClass('searchbar');
+    expect(searchBox).toHaveClass('search-box');
+    expect(searchBar).toHaveClass('search-bar');
   });
 
   it('should render column styles', async () => {
@@ -104,7 +104,7 @@ describe('Check searchbar style', () => {
   it('should render search box styles', async () => {
     const { getByTestId } = render(SearchBar);
 
-    const searchBox = getByTestId('search_box');
+    const searchBox = getByTestId('search-box');
 
     expect(searchBox).toHaveStyle({
       width: '280px',
@@ -116,9 +116,9 @@ describe('Check searchbar style', () => {
   it('should render search bar styles', async () => {
     const { getByTestId } = render(SearchBar);
 
-    const searchbar = getByTestId('searchbar');
+    const searchBar = getByTestId('search-bar');
 
-    expect(searchbar).toHaveStyle({
+    expect(searchBar).toHaveStyle({
       width: '280px',
       padding: '20px',
       'border-color': '#448996',
@@ -137,8 +137,8 @@ describe('Check searchbar style', () => {
       },
     });
 
-    const platformListCheckboxes = getAllByTestId('platformList_checkbox');
-    const platformListLabels = getAllByTestId('platformList_label');
+    const platformListCheckboxes = getAllByTestId('platform-list checkbox');
+    const platformListLabels = getAllByTestId('platform-list label');
     platformListCheckboxes.forEach((checkbox) => {
       expect(checkbox).toHaveStyle({
         display: 'none',

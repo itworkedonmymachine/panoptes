@@ -37,13 +37,13 @@
     text-align: center;
   }
 
-  .search_box {
+  .search-box {
     width: 280px;
     position: relative;
     margin: 0 auto;
   }
 
-  .searchbar {
+  .search-bar {
     width: 280px;
     padding: 20px;
     border-color: #448996;
@@ -68,23 +68,23 @@
 
 <div class="column" data-testid="column">
   <div class="box" data-testid="box">
-    <div class="search_box" data-testid="search_box">
+    <div class="search-box" data-testid="search-box">
       <input
         type="search"
-        data-testid="searchbar"
+        data-testid="search-bar"
         placeholder="enter platform"
         bind:value={userInput}
-        class="searchbar" />
+        class="search-bar" />
       <ul id="platforms">
-        <form data-testid="platformList">
+        <form data-testid="platform-list">
           {#each filteredPlatforms as filteredPlatform}
             <input
               type="checkbox"
               name={filteredPlatform}
               value={filteredPlatform}
               id={filteredPlatform}
-              data-testid="platformList_checkbox" />
-            <label for={filteredPlatform} data-testid="platformList_label">
+              data-testid="platform-list checkbox" />
+            <label for={filteredPlatform} data-testid="platform-list label">
               {filteredPlatform}
             </label>
           {/each}
