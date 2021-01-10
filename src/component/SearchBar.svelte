@@ -77,6 +77,25 @@
       display: none;
     }
   }
+
+  /* remove clear icon in search bar */
+  /* for chrome */
+  input[type='search']::-webkit-search-cancel-button,
+  input[type='search']::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  /* for ie */
+  input[type='search']::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+  input[type='search']::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+  }
 </style>
 
 <div class="search-container" data-testid="search-container">
