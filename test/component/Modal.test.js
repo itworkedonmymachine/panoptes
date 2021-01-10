@@ -1,4 +1,4 @@
-import { render } from '@testing-library/svelte';
+import { fireEvent, render } from '@testing-library/svelte';
 import Modal from '../../src/component/Modal.svelte';
 import ModalSlotTest from './ModalSlotTest.svelte';
 
@@ -17,23 +17,13 @@ describe('Render Modal overlay', () => {
     });
   });
 
-  it('should overlay have background color', () => {
+  it('should overlay have white background color w/ little transparency', () => {
     const { getByTestId } = render(Modal);
 
     const overlay = getByTestId('overlay');
 
     expect(overlay).toHaveStyle({
-      background: '#C4C4C4',
-    });
-  });
-
-  it('should overlay have little transparency', () => {
-    const { getByTestId } = render(Modal);
-
-    const overlay = getByTestId('overlay');
-
-    expect(overlay).toHaveStyle({
-      opacity: 0.9,
+      background: 'rgba(255, 255, 255, 0.9)',
     });
   });
 
@@ -55,11 +45,73 @@ describe('Render Modal', () => {
     const overlay = getByTestId('overlay');
     const container = getByTestId('container');
     const overlayStyle = getComputedStyle(overlay);
-    const conatinerStyle = getComputedStyle(container);
+    const containerStyle = getComputedStyle(container);
     const overlayZIndex = parseInt(overlayStyle.zIndex, 10);
-    const containerZIndex = parseInt(conatinerStyle.zIndex, 10);
+    const containerZIndex = parseInt(containerStyle.zIndex, 10);
 
     expect(containerZIndex).toBeGreaterThan(overlayZIndex);
+  });
+
+  it('should container have relative position', async () => {
+    const { getByTestId } = render(Modal);
+
+    const container = getByTestId('container');
+
+    expect(container).toHaveStyle({
+      position: 'relative',
+    });
+  });
+
+  it('should cover header & ticker', () => {
+    const { getByTestId } = render(Modal);
+
+    const headerCover = getByTestId('header-ticker-cover');
+
+    expect(headerCover).toBeVisible();
+    expect(headerCover).toHaveStyle({
+      position: 'absolute',
+      top: '0',
+      left: '0',
+      right: '0',
+      height: 'calc(var(--header-height) + 40px)',
+      background: '#FFFFFF',
+    });
+  });
+});
+
+describe('Render Cancel button', () => {
+  it('should cancel button be visible', () => {
+    const { getByTestId } = render(Modal);
+
+    const cancelButton = getByTestId('cancel-button');
+
+    expect(cancelButton).toBeVisible();
+  });
+
+  it('should render cancel button at bottom of button container', () => {
+    const { getByTestId } = render(Modal);
+
+    const cancelButton = getByTestId('cancel-button');
+    const cancelButtonContainer = getByTestId('cancel-button-container');
+
+    expect(cancelButtonContainer).toHaveStyle({
+      position: 'relative',
+    });
+    expect(cancelButton).toHaveStyle({
+      position: 'absolute',
+      bottom: '0',
+    });
+  });
+
+  it('should close modal if cancel button is clicked', async () => {
+    const { getByTestId } = render(Modal);
+
+    const cancelButton = getByTestId('cancel-button');
+    const overlay = getByTestId('overlay');
+
+    await fireEvent.click(cancelButton);
+
+    expect(overlay).not.toBeVisible();
   });
 });
 
