@@ -37,16 +37,13 @@
     color: #c4c4c4;
   }
 
-  #platforms input[type='checkbox'] {
-    display: none;
+  .platform-list {
+    padding: 0;
+    margin: 0;
   }
 
-  #platforms label {
+  .platform {
     cursor: pointer;
-  }
-
-  #platforms input[type='checkbox']:checked + label {
-    font-weight: var(--font-weight-bold);
   }
 </style>
 
@@ -57,19 +54,9 @@
     placeholder="SEARCH"
     bind:value={userInput}
     class="search-bar" />
-  <ul id="platforms">
-    <form data-testid="platform-list">
-      {#each filteredPlatforms as filteredPlatform}
-        <input
-          type="checkbox"
-          name={filteredPlatform}
-          value={filteredPlatform}
-          id={filteredPlatform}
-          data-testid="platform-list checkbox" />
-        <label for={filteredPlatform} data-testid="platform-list label">
-          {filteredPlatform}
-        </label>
-      {/each}
-    </form>
-  </ul>
+  <dl data-testid="platform-list" class="platform-list">
+    {#each filteredPlatforms as filteredPlatform}
+      <dt data-testid="platform" class="platform">{filteredPlatform}</dt>
+    {/each}
+  </dl>
 </div>

@@ -22,9 +22,9 @@ describe('Render search bar', () => {
 
     const platformList = getByTestId('platform-list');
 
-    expect(platformList.childElementCount).toBe(4);
-    expect(platformList.children.item(0)).toHaveAttribute('value', 'Docker');
-    expect(platformList.children.item(2)).toHaveAttribute('value', 'NPM');
+    expect(platformList.childElementCount).toBe(2);
+    expect(platformList.children.item(0)).toHaveTextContent('Docker');
+    expect(platformList.children.item(1)).toHaveTextContent('NPM');
   });
 
   it('should render platform list properly if user input is given', async () => {
@@ -37,8 +37,8 @@ describe('Render search bar', () => {
 
     const platformList = getByTestId('platform-list');
 
-    expect(platformList.childElementCount).toBe(2);
-    expect(platformList.children.item(0)).toHaveAttribute('value', 'Dropbox');
+    expect(platformList.childElementCount).toBe(1);
+    expect(platformList.children.item(0)).toHaveTextContent('Dropbox');
   });
 
   it('should render platform list if user input is given in lowercase', async () => {
@@ -50,8 +50,8 @@ describe('Render search bar', () => {
     });
 
     const platformList = getByTestId('platform-list');
-    expect(platformList.childElementCount).toBe(2);
-    expect(platformList.children.item(0)).toHaveAttribute('value', 'GitHub');
+    expect(platformList.childElementCount).toBe(1);
+    expect(platformList.children.item(0)).toHaveTextContent('GitHub');
   });
 });
 
@@ -110,7 +110,23 @@ describe('Check Search Bar style', () => {
     });
   });
 
-  it('should render checkbox and label styles', async () => {
+  it('should have no margin or padding for platform list', () => {
+    const { getByTestId } = render(SearchBar, {
+      props: {
+        userInput: 'Dro',
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
+      },
+    });
+
+    const platformList = getByTestId('platform-list');
+
+    expect(platformList).toHaveStyle({
+      padding: '0',
+      margin: '0',
+    });
+  });
+
+  it('should render platform styles', async () => {
     const { getAllByTestId } = render(SearchBar, {
       props: {
         userInput: 'Dro',
@@ -118,15 +134,9 @@ describe('Check Search Bar style', () => {
       },
     });
 
-    const platformListCheckboxes = getAllByTestId('platform-list checkbox');
-    const platformListLabels = getAllByTestId('platform-list label');
-    platformListCheckboxes.forEach((checkbox) => {
-      expect(checkbox).toHaveStyle({
-        display: 'none',
-      });
-    });
+    const platforms = getAllByTestId('platform');
 
-    platformListLabels.forEach((label) => {
+    platforms.forEach((label) => {
       expect(label).toHaveStyle({
         cursor: 'pointer',
       });
