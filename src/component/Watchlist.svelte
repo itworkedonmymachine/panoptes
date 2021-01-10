@@ -1,7 +1,7 @@
 <script>
   import { onDestroy } from 'svelte';
   import WatchlistItem from './WatchlistItem.svelte';
-  import { statuspageTickerStores } from '../store/statuspageStore';
+  import statusStorePool from '../store/statusStorePool';
 
   export let watchlistDatas = [];
 
@@ -9,9 +9,10 @@
 
   // if it's not test
   if (watchlistDatas.length === 0) {
-    unsubscribes = statuspageTickerStores.forEach((store, i) => {
-      store.subscribe((statusTickerData) => {
-        watchlistDatas[i] = statusTickerData;
+    unsubscribes = Object.keys(statusStorePool).forEach((platform, i) => {
+      const store = statusStorePool[platform].summarizedStatusStore;
+      store.subscribe((watchlistData) => {
+        watchlistDatas[i] = watchlistData;
       });
     });
   }
