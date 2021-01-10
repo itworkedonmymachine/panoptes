@@ -88,6 +88,16 @@ describe('Check Search Bar style', () => {
     });
   });
 
+  it('should search bar render input w/ font setting as light', async () => {
+    const { getByTestId } = render(SearchBar);
+
+    const searchBar = getByTestId('search-bar');
+
+    expect(searchBar).toHaveStyle({
+      'font-weight': 'var(--font-weight-light)',
+    });
+  });
+
   it('should search bar have full width but clear button', async () => {
     const { getByTestId } = render(SearchBar);
 

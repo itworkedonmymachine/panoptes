@@ -47,6 +47,8 @@
   }
 
   .search-bar {
+    font-weight: var(--font-weight-light);
+
     border: none;
     outline: none;
 
