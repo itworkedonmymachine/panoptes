@@ -85,7 +85,7 @@ describe('Check searchbar style', () => {
     });
   });
 
-  it('should redner box sytles', async () => {
+  it('should render box styles', async () => {
     const { getByTestId } = render(SearchBar);
 
     const box = getByTestId('box');
@@ -101,7 +101,7 @@ describe('Check searchbar style', () => {
     });
   });
 
-  it('should render search box sytles', async () => {
+  it('should render search box styles', async () => {
     const { getByTestId } = render(SearchBar);
 
     const searchBox = getByTestId('search_box');
@@ -113,7 +113,7 @@ describe('Check searchbar style', () => {
     });
   });
 
-  it('should render seach bar styles', async () => {
+  it('should render search bar styles', async () => {
     const { getByTestId } = render(SearchBar);
 
     const searchbar = getByTestId('searchbar');
