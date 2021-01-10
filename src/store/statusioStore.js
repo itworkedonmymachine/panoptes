@@ -1,21 +1,34 @@
 import { readable, derived } from 'svelte/store';
-import { getStatusOf, getStatusTickerDataOf } from '../helper/statusioHelper';
 
-const generatePair = (platform, statusId) => ({
-  platform,
-  statusId,
-});
+const getOverallStatusCodeOf = (statusJson) =>
+  statusJson.result.status_overall.status_code;
 
-const platformStatusIdpairs = [
-  generatePair('Docker Hub', '533c6539221ae15e3f000031'),
-  generatePair('GitLab', '5b36dc6502d06804c08349f7'),
-  generatePair("Let's Encrypt", '55957a99e800baa4470002da'),
-];
+const getStatusOf = async (statusId) => {
+  const response = await fetch(`https://status.io/1.0/status/${statusId}`);
+  return response.json();
+};
+
+const getSummarizedStatusOf = (rawStatusPair) => {
+  const { platform, status } = rawStatusPair;
+  if (!status) {
+    return {
+      platform,
+    };
+  }
+
+  const statusCode = getOverallStatusCodeOf(status);
+  return {
+    platform,
+    fetching: false,
+    minor: statusCode > 100 && statusCode < 500,
+    major: statusCode >= 500,
+  };
+};
 
 const storeValueOf = (platform, status = null) => ({ platform, status });
 
-const createStatusioReadableStore = (platform, statusId) => {
-  const statusioReadableStore = readable(
+export const createRawStatusStore = (platform, statusId) => {
+  const statusioRawStatusStore = readable(
     storeValueOf(platform),
     async (set) => {
       const updateStatus = async () => {
@@ -29,14 +42,10 @@ const createStatusioReadableStore = (platform, statusId) => {
     }
   );
 
-  return statusioReadableStore;
+  return statusioRawStatusStore;
 };
 
-export const statusioStores = platformStatusIdpairs.map((pair) =>
-  createStatusioReadableStore(pair.platform, pair.statusId)
-);
-export const statusioTickerStores = statusioStores.map((rawStatusStore) =>
+export const createSummarizedStatusStore = (rawStatusStore) =>
   derived(rawStatusStore, ($rawStatusPair) =>
-    getStatusTickerDataOf($rawStatusPair)
-  )
-);
+    getSummarizedStatusOf($rawStatusPair)
+  );

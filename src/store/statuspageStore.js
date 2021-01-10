@@ -1,27 +1,35 @@
 import { readable, derived } from 'svelte/store';
-import { getStatusOf, getStatusTickerDataOf } from '../helper/statuspageHelper';
 
-const generatePair = (platform, pageId) => ({
-  platform,
-  pageId,
-});
+const getIndicatorOf = (statusJson) => statusJson.status.indicator;
 
-const platformStatuspageIdpairs = [
-  generatePair('GitHub', 'kctbh9vrtdwd'),
-  generatePair('npm', 'wyvgptkd90hm'),
-  generatePair('CircleCI', '6w4r0ttlx5ft'),
-  generatePair('Travis CI', 'pnpcptp8xh9k'),
-  generatePair('Dropbox', 't34htyd6jblf'),
-  generatePair('New Relic', 'nwg5xmnm9d17'),
-  generatePair('Bitbucket', 'bqlf8qjztdtr'),
-  generatePair('Sentry', 't687h3m0nh65'),
-  generatePair('Datadog', '1k6wzpspjf99'),
-];
+const getStatusOf = async (statuspageId) => {
+  const response = await fetch(
+    `https://${statuspageId}.statuspage.io/api/v2/summary.json`
+  );
+  return response.json();
+};
+
+const getSummarizedStatusOf = (rawStatusPair) => {
+  const { platform, status } = rawStatusPair;
+  if (!status) {
+    return {
+      platform,
+    };
+  }
+
+  const indicator = getIndicatorOf(status);
+  return {
+    platform,
+    fetching: false,
+    minor: indicator === 'minor',
+    major: indicator === 'major',
+  };
+};
 
 const storeValueOf = (platform, status = null) => ({ platform, status });
 
-const createStatuspageReadableStore = (platform, statuspageId) => {
-  const statuspageReadableStore = readable(
+export const createRawStatusStore = (platform, statuspageId) => {
+  const statuspageRawStatusStore = readable(
     storeValueOf(platform),
     async (set) => {
       const updateStatus = async () => {
@@ -35,14 +43,10 @@ const createStatuspageReadableStore = (platform, statuspageId) => {
     }
   );
 
-  return statuspageReadableStore;
+  return statuspageRawStatusStore;
 };
 
-export const statuspageStores = platformStatuspageIdpairs.map((pair) =>
-  createStatuspageReadableStore(pair.platform, pair.pageId)
-);
-export const statuspageTickerStores = statuspageStores.map((rawStatusStore) =>
+export const createSummarizedStatusStore = (rawStatusStore) =>
   derived(rawStatusStore, ($rawStatusPair) =>
-    getStatusTickerDataOf($rawStatusPair)
-  )
-);
+    getSummarizedStatusOf($rawStatusPair)
+  );

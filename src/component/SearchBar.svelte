@@ -1,7 +1,7 @@
 <script>
   import { onDestroy } from 'svelte';
-  import { statuspageTickerStores } from '../store/statuspageStore';
   import StatusTickerItem from './StatusTickerItem.svelte';
+  import statusStorePool from '../store/statusStorePool';
 
   let unsubscribes;
   export let statusPlatforms = []; // any[]
@@ -9,7 +9,8 @@
   export let userInput = '';
   // in real case
   if (statusPlatforms.length === 0) {
-    unsubscribes = statuspageTickerStores.forEach((store, i) => {
+    unsubscribes = Object.keys(statusStorePool).forEach((platform, i) => {
+      const store = statusStorePool[platform].summarizedStatusStore;
       store.subscribe((statusPlatform) => {
         statusPlatforms[i] = statusPlatform;
       });
