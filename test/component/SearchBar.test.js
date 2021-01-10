@@ -1,4 +1,4 @@
-import { render } from '@testing-library/svelte';
+import { fireEvent, render } from '@testing-library/svelte';
 import SearchBar from '../../src/component/SearchBar.svelte';
 
 describe('Render search bar', () => {
@@ -158,6 +158,23 @@ describe('Check Search Bar style', () => {
         'font-size': 'var(--font-size-large)',
         'font-weight': 'var(--font-weight-light)',
       });
+    });
+  });
+
+  it('should font for selected platform be bold weight', async () => {
+    const { getByText } = render(SearchBar, {
+      props: {
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
+      },
+    });
+
+    const dropbox = getByText('Dropbox');
+
+    await fireEvent.click(dropbox);
+
+    expect(dropbox).toHaveClass('selected');
+    expect(dropbox).toHaveStyle({
+      'font-weight': 'var(--font-weight-bold)',
     });
   });
 });

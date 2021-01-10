@@ -2,6 +2,7 @@
   import { platforms } from '../store/statusStorePool';
 
   export let statusPlatforms = []; // any[]
+  let selectedPlatforms = [];
 
   export let userInput = '';
   // in real case
@@ -9,11 +10,22 @@
     statusPlatforms = platforms;
   }
 
+  const handlePlatformClick = (platform) => {
+    console.log(selectedPlatforms, platform);
+    if (selectedPlatforms.includes(platform)) {
+      selectedPlatforms = selectedPlatforms.filter((p) => p !== platform);
+      return;
+    }
+    selectedPlatforms = [...selectedPlatforms, platform];
+  };
+
   $: filteredPlatforms = userInput
     ? statusPlatforms.filter((statusPlatform) =>
         statusPlatform.toLowerCase().startsWith(userInput.toLowerCase())
       )
     : statusPlatforms;
+
+  $: isPlatformSelectd = (platform) => selectedPlatforms.includes(platform);
 </script>
 
 <style>
@@ -47,6 +59,10 @@
     font-size: var(--font-size-large);
     font-weight: var(--font-weight-light);
   }
+
+  .selected {
+    font-weight: var(--font-weight-bold);
+  }
 </style>
 
 <div class="search-container" data-testid="search-container">
@@ -58,7 +74,13 @@
     class="search-bar" />
   <dl data-testid="platform-list" class="platform-list">
     {#each filteredPlatforms as filteredPlatform}
-      <dt data-testid="platform" class="platform">{filteredPlatform}</dt>
+      <dt
+        data-testid="platform"
+        class="platform"
+        on:click={handlePlatformClick(filteredPlatform)}
+        class:selected={isPlatformSelectd(filteredPlatform)}>
+        {filteredPlatform}
+      </dt>
     {/each}
   </dl>
 </div>
