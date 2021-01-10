@@ -1,20 +1,20 @@
 class PlatformStatus {
   constructor(platform, rawStatusStore, summarizedStatusStore) {
-    this.platform = platform;
-    this.rawStatusStore = rawStatusStore;
-    this.summarizedStatusStore = summarizedStatusStore;
+    this._platform = platform;
+    this._rawStatusStore = rawStatusStore;
+    this._summarizedStatusStore = summarizedStatusStore;
   }
 
   get platform() {
-    return this.platform;
+    return this._platform;
   }
 
   get rawStatusStore() {
-    return this.rawStatusStore;
+    return this._rawStatusStore;
   }
 
   get summarizedStatusStore() {
-    return this.summarizedStatusStore;
+    return this._summarizedStatusStore;
   }
 }
 

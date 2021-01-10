@@ -10,7 +10,7 @@ class StatuspageStore extends PlatformStatus {
     const summarizedStatusStore = createSummarizedStatusStore(rawStatusStore);
     super(platform, rawStatusStore, summarizedStatusStore);
 
-    this.pageId = pageId;
+    this._pageId = pageId;
   }
 }
 

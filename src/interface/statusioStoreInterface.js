@@ -10,7 +10,7 @@ class StatusioStore extends PlatformStatus {
     const summarizedStatusStore = createSummarizedStatusStore(rawStatusStore);
     super(platform, rawStatusStore, summarizedStatusStore);
 
-    this.statusId = statusId;
+    this._statusId = statusId;
   }
 }
 
