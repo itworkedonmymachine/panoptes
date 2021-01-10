@@ -70,6 +70,12 @@
   .selected {
     font-weight: var(--font-weight-bold);
   }
+
+  @media (max-width: 759px) {
+    .undo-select-icon {
+      display: none;
+    }
+  }
 </style>
 
 <div class="search-container" data-testid="search-container">
