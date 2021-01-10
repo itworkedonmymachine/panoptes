@@ -51,6 +51,32 @@ describe('Render Modal', () => {
 
     expect(containerZIndex).toBeGreaterThan(overlayZIndex);
   });
+
+  it('should container have relative position', async () => {
+    const { getByTestId } = render(Modal);
+
+    const container = getByTestId('container');
+
+    expect(container).toHaveStyle({
+      position: 'relative',
+    });
+  });
+
+  it('should cover header & ticker', () => {
+    const { getByTestId } = render(Modal);
+
+    const headerCover = getByTestId('header-ticker-cover');
+
+    expect(headerCover).toBeVisible();
+    expect(headerCover).toHaveStyle({
+      position: 'absolute',
+      top: '0',
+      left: '0',
+      right: '0',
+      height: 'calc(var(--header-height) + 40px)',
+      background: '#FFFFFF',
+    });
+  });
 });
 
 describe('Render Cancel button', () => {
