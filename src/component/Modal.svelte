@@ -18,6 +18,27 @@
   .container {
     z-index: 140;
   }
+
+  @media (min-width: 760px) {
+    .container {
+      width: 700px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (min-width: 1020px) {
+    .container {
+      width: 1000px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container {
+      width: 1200px;
+      margin: 0 auto;
+    }
+  }
 </style>
 
 <div data-testid="overlay" class="modal-overlay">
