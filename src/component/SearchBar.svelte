@@ -88,6 +88,10 @@
   }
 
   @media (max-width: 759px) {
+    .search-bar-container {
+      font-size: 0.9em;
+    }
+
     .undo-select-icon {
       display: none;
     }
