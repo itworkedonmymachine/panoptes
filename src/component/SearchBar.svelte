@@ -44,6 +44,8 @@
 
   .platform {
     cursor: pointer;
+    font-size: var(--font-size-large);
+    font-weight: var(--font-weight-light);
   }
 </style>
 

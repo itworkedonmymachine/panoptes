@@ -126,7 +126,7 @@ describe('Check Search Bar style', () => {
     });
   });
 
-  it('should render platform styles', async () => {
+  it('should cursor be pointer when hover on platform', async () => {
     const { getAllByTestId } = render(SearchBar, {
       props: {
         userInput: 'Dro',
@@ -139,6 +139,24 @@ describe('Check Search Bar style', () => {
     platforms.forEach((label) => {
       expect(label).toHaveStyle({
         cursor: 'pointer',
+      });
+    });
+  });
+
+  it('should font for platform be large & light weight', async () => {
+    const { getAllByTestId } = render(SearchBar, {
+      props: {
+        userInput: 'Dro',
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
+      },
+    });
+
+    const platforms = getAllByTestId('platform');
+
+    platforms.forEach((label) => {
+      expect(label).toHaveStyle({
+        'font-size': 'var(--font-size-large)',
+        'font-weight': 'var(--font-weight-light)',
       });
     });
   });
