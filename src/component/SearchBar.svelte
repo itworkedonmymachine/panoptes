@@ -73,13 +73,13 @@
     bind:value={userInput}
     class="search-bar" />
   <dl data-testid="platform-list" class="platform-list">
-    {#each filteredPlatforms as filteredPlatform}
+    {#each filteredPlatforms as platform}
       <dt
         data-testid="platform"
         class="platform"
-        on:click={handlePlatformClick(filteredPlatform)}
-        class:selected={isPlatformSelectd(filteredPlatform)}>
-        {filteredPlatform}
+        on:click={handlePlatformClick(platform)}
+        class:selected={isPlatformSelectd(platform)}>
+        {platform}
       </dt>
     {/each}
   </dl>
