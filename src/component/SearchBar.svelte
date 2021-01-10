@@ -1,33 +1,17 @@
 <script>
-  import { onDestroy } from 'svelte';
-  import StatusTickerItem from './StatusTickerItem.svelte';
-  import statusStorePool from '../store/statusStorePool';
+  import { platforms } from '../store/statusStorePool';
 
-  let unsubscribes;
   export let statusPlatforms = []; // any[]
 
   export let userInput = '';
   // in real case
   if (statusPlatforms.length === 0) {
-    unsubscribes = Object.keys(statusStorePool).forEach((platform, i) => {
-      const store = statusStorePool[platform].summarizedStatusStore;
-      store.subscribe((statusPlatform) => {
-        statusPlatforms[i] = statusPlatform;
-      });
-    });
+    statusPlatforms = platforms;
   }
-
-  onDestroy(() => {
-    if (unsubscribes) {
-      unsubscribes.forEach((unsubscribe) => unsubscribe());
-    }
-  });
 
   $: filteredPlatforms = userInput
     ? statusPlatforms.filter((statusPlatform) =>
-        statusPlatform.platform
-          .toLowerCase()
-          .startsWith(userInput.toLowerCase())
+        statusPlatform.toLowerCase().startsWith(userInput.toLowerCase())
       )
     : statusPlatforms;
 </script>
@@ -96,14 +80,13 @@
           {#each filteredPlatforms as filteredPlatform}
             <input
               type="checkbox"
-              name={filteredPlatform.platform}
-              value={filteredPlatform.platform}
-              id={filteredPlatform.platform}
+              name={filteredPlatform}
+              value={filteredPlatform}
+              id={filteredPlatform}
               data-testid="platformList_checkbox" />
-            <label
-              for={filteredPlatform.platform}
-              data-testid="platformList_label"><StatusTickerItem
-                {...filteredPlatform} /></label>
+            <label for={filteredPlatform} data-testid="platformList_label">
+              {filteredPlatform}
+            </label>
           {/each}
         </form>
       </ul>

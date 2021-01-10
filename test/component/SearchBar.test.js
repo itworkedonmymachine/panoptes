@@ -16,10 +16,7 @@ describe('Render search bar', () => {
   it('should render platform list properly', async () => {
     const { getByTestId } = render(SearchBar, {
       props: {
-        statusPlatforms: [
-          { platform: 'Docker', major: true, minor: false },
-          { platform: 'NPM', minor: true },
-        ],
+        statusPlatforms: ['Docker', 'NPM'],
       },
     });
 
@@ -34,11 +31,7 @@ describe('Render search bar', () => {
     const { getByTestId } = render(SearchBar, {
       props: {
         userInput: 'Dro',
-        statusPlatforms: [
-          { platform: 'Docker', major: true, minor: false },
-          { platform: 'NPM', minor: true },
-          { platform: 'Dropbox', major: false, minor: false },
-        ],
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
       },
     });
 
@@ -52,12 +45,7 @@ describe('Render search bar', () => {
     const { getByTestId } = render(SearchBar, {
       props: {
         userInput: 'github',
-        statusPlatforms: [
-          { platform: 'Docker', major: true, minor: false },
-          { platform: 'NPM', minor: true },
-          { platform: 'Dropbox', major: false, minor: false },
-          { platform: 'GitHub', major: true },
-        ],
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox', 'GitHub'],
       },
     });
 
@@ -144,11 +132,8 @@ describe('Check searchbar style', () => {
   it('should render checkbox and label styles', async () => {
     const { getAllByTestId } = render(SearchBar, {
       props: {
-        statusPlatforms: [
-          { platform: 'Docker', major: true, minor: false },
-          { platform: 'NPM', minor: true },
-          { platform: 'Dropbox', major: false, minor: false },
-        ],
+        userInput: 'Dro',
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
       },
     });
 
