@@ -120,22 +120,6 @@ describe('Check Search Bar style', () => {
     });
   });
 
-  it('should have no margin or padding for platform list', () => {
-    const { getByTestId } = render(SearchBar, {
-      props: {
-        userInput: 'Dro',
-        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
-      },
-    });
-
-    const platformList = getByTestId('platform-list');
-
-    expect(platformList).toHaveStyle({
-      padding: '0',
-      margin: '0',
-    });
-  });
-
   it("should clear button not show when there's no user input", async () => {
     const { getByTestId } = render(SearchBar, {
       props: {
@@ -158,6 +142,74 @@ describe('Check Search Bar style', () => {
 
     expect(clearButton).toHaveStyle({
       cursor: 'pointer',
+    });
+  });
+
+  it('should clear user input when clear is clicked', async () => {
+    const { getByTestId, getAllByTestId } = render(SearchBar, {
+      props: {
+        userInput: 'd',
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox', 'GitHub', 'Test'],
+      },
+    });
+
+    const clearButton = getByTestId('clear-button');
+
+    const platformsBeforeClear = getAllByTestId('platform');
+    expect(platformsBeforeClear.length).toBe(2);
+
+    await fireEvent.click(clearButton);
+
+    const platformsAfterClear = getAllByTestId('platform');
+    expect(platformsAfterClear.length).toBe(5);
+  });
+
+  it('should focus search bar after clear is clicked', async () => {
+    const { getByTestId } = render(SearchBar, {
+      props: {
+        userInput: 'd',
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox', 'GitHub', 'Test'],
+      },
+    });
+
+    const clearButton = getByTestId('clear-button');
+    const searchBar = getByTestId('search-bar');
+
+    await fireEvent.click(clearButton);
+
+    expect(searchBar).toHaveFocus();
+  });
+});
+
+describe('Check platform list style', () => {
+  it('should have no margin or padding for platform list', () => {
+    const { getByTestId } = render(SearchBar, {
+      props: {
+        userInput: 'Dro',
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
+      },
+    });
+
+    const platformList = getByTestId('platform-list');
+
+    expect(platformList).toHaveStyle({
+      padding: '0',
+      margin: '0',
+    });
+  });
+
+  it('should platform list have height of watch list & scrollable', () => {
+    const { getByTestId } = render(SearchBar, {
+      props: {
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
+      },
+    });
+
+    const platformList = getByTestId('platform-list');
+
+    expect(platformList).toHaveStyle({
+      height: 'calc(100vh - var(--header-height) - 70px)',
+      overflow: 'scroll',
     });
   });
 
@@ -225,40 +277,5 @@ describe('Check Search Bar style', () => {
 
     expect(dropbox).toHaveClass('selected');
     expect(dropbox.lastElementChild).toHaveClass('undo-select-icon');
-  });
-
-  it('should clear user input when clear is clicked', async () => {
-    const { getByTestId, getAllByTestId } = render(SearchBar, {
-      props: {
-        userInput: 'd',
-        statusPlatforms: ['Docker', 'NPM', 'Dropbox', 'GitHub', 'Test'],
-      },
-    });
-
-    const clearButton = getByTestId('clear-button');
-
-    const platformsBeforeClear = getAllByTestId('platform');
-    expect(platformsBeforeClear.length).toBe(2);
-
-    await fireEvent.click(clearButton);
-
-    const platformsAfterClear = getAllByTestId('platform');
-    expect(platformsAfterClear.length).toBe(5);
-  });
-
-  it('should focus search bar after clear is clicked', async () => {
-    const { getByTestId } = render(SearchBar, {
-      props: {
-        userInput: 'd',
-        statusPlatforms: ['Docker', 'NPM', 'Dropbox', 'GitHub', 'Test'],
-      },
-    });
-
-    const clearButton = getByTestId('clear-button');
-    const searchBar = getByTestId('search-bar');
-
-    await fireEvent.click(clearButton);
-
-    expect(searchBar).toHaveFocus();
   });
 });
