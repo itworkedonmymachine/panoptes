@@ -5,6 +5,9 @@
   let selectedPlatforms = [];
 
   export let userInput = '';
+
+  let searchBar;
+
   // in real case
   if (statusPlatforms.length === 0) {
     statusPlatforms = platforms;
@@ -20,6 +23,7 @@
 
   const handleClear = () => {
     userInput = '';
+    searchBar.focus();
   };
 
   $: filteredPlatforms = userInput
@@ -123,6 +127,7 @@
       data-testid="search-bar"
       placeholder="SEARCH"
       bind:value={userInput}
+      bind:this={searchBar}
       class="search-bar" />
     {#if userInput.length}
       <div

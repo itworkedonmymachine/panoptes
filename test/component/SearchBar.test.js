@@ -245,4 +245,20 @@ describe('Check Search Bar style', () => {
     const platformsAfterClear = getAllByTestId('platform');
     expect(platformsAfterClear.length).toBe(5);
   });
+
+  it('should focus search bar after clear is clicked', async () => {
+    const { getByTestId } = render(SearchBar, {
+      props: {
+        userInput: 'd',
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox', 'GitHub', 'Test'],
+      },
+    });
+
+    const clearButton = getByTestId('clear-button');
+    const searchBar = getByTestId('search-bar');
+
+    await fireEvent.click(clearButton);
+
+    expect(searchBar).toHaveFocus();
+  });
 });
