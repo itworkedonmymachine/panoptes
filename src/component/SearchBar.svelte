@@ -19,7 +19,7 @@
   };
 
   const handleClear = () => {
-    selectedPlatforms = [];
+    userInput = '';
   };
 
   $: filteredPlatforms = userInput
@@ -124,9 +124,14 @@
       placeholder="SEARCH"
       bind:value={userInput}
       class="search-bar" />
-    <div class="clear-button" data-testid="clear-button" on:click={handleClear}>
-      CLEAR
-    </div>
+    {#if userInput.length}
+      <div
+        class="clear-button"
+        data-testid="clear-button"
+        on:click={handleClear}>
+        CLEAR
+      </div>
+    {/if}
   </div>
   <dl data-testid="platform-list" class="platform-list">
     {#each filteredPlatforms as platform}

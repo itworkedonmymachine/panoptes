@@ -136,9 +136,20 @@ describe('Check Search Bar style', () => {
     });
   });
 
+  it("should clear button not show when there's no user input", async () => {
+    const { getByTestId } = render(SearchBar, {
+      props: {
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
+      },
+    });
+
+    expect(() => getByTestId('clear-button')).toThrow();
+  });
+
   it('should cursor be pointer when hover on clear button', async () => {
     const { getByTestId } = render(SearchBar, {
       props: {
+        userInput: 'n',
         statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
       },
     });
@@ -216,28 +227,22 @@ describe('Check Search Bar style', () => {
     expect(dropbox.lastElementChild).toHaveClass('undo-select-icon');
   });
 
-  it('should clear selection when clear is clicked', async () => {
+  it('should clear user input when clear is clicked', async () => {
     const { getByTestId, getAllByTestId } = render(SearchBar, {
       props: {
+        userInput: 'd',
         statusPlatforms: ['Docker', 'NPM', 'Dropbox', 'GitHub', 'Test'],
       },
     });
 
-    const platforms = getAllByTestId('platform');
     const clearButton = getByTestId('clear-button');
 
-    await fireEvent.click(platforms[0]);
-    await fireEvent.click(platforms[1]);
-    await fireEvent.click(platforms[3]);
-
-    expect(platforms[0]).toHaveClass('selected');
-    expect(platforms[1]).toHaveClass('selected');
-    expect(platforms[3]).toHaveClass('selected');
+    const platformsBeforeClear = getAllByTestId('platform');
+    expect(platformsBeforeClear.length).toBe(2);
 
     await fireEvent.click(clearButton);
 
-    expect(platforms[0]).not.toHaveClass('selected');
-    expect(platforms[1]).not.toHaveClass('selected');
-    expect(platforms[3]).not.toHaveClass('selected');
+    const platformsAfterClear = getAllByTestId('platform');
+    expect(platformsAfterClear.length).toBe(5);
   });
 });
