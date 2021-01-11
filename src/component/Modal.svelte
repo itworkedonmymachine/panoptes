@@ -1,8 +1,7 @@
 <script>
-  let closed = false;
-
-  const onClickCancel = () => {
-    closed = true;
+  export let show = true;
+  export let onClose = () => {
+    show = false;
   };
 </script>
 
@@ -77,14 +76,11 @@
   }
 </style>
 
-<div data-testid="overlay" class="modal-overlay" class:closed>
+<div data-testid="overlay" class="modal-overlay" class:closed={!show}>
   <div data-testid="container" class="container">
     <div data-testid="header-ticker-cover" class="header-ticker-cover" />
     <div data-testid="cancel-button-container" class="cancel-button-container">
-      <div
-        data-testid="cancel-button"
-        class="cancel-button"
-        on:click={onClickCancel}>
+      <div data-testid="cancel-button" class="cancel-button" on:click={onClose}>
         CANCEL
       </div>
     </div>
