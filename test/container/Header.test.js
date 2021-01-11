@@ -1,4 +1,4 @@
-import { render } from '@testing-library/svelte';
+import { fireEvent, render } from '@testing-library/svelte';
 import Header from '../../src/container/Header.svelte';
 
 describe('Render Header', () => {
@@ -73,4 +73,29 @@ describe('Render Header', () => {
       margin: 'auto 0',
     });
   });
+
+  it('should make cursor as pointer if hovered on search', async () => {
+    const { getByTestId } = render(Header);
+
+    const search = getByTestId('search');
+
+    expect(search).toHaveStyle({
+      cursor: 'pointer',
+    });
+  });
+});
+
+describe('Show modals when search | settings are clicked', () => {
+  it('should show modal when user clicks search', async () => {
+    const { getByTestId } = render(Header);
+
+    const search = getByTestId('search');
+    const searchBar = getByTestId('search-bar');
+
+    expect(searchBar).not.toBeVisible();
+    await fireEvent.click(search);
+    expect(searchBar).toBeVisible();
+  });
+
+  // settings will be implemented later
 });

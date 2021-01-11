@@ -11,7 +11,6 @@
   }
 
   const handlePlatformClick = (platform) => {
-    console.log(selectedPlatforms, platform);
     if (selectedPlatforms.includes(platform)) {
       selectedPlatforms = selectedPlatforms.filter((p) => p !== platform);
       return;
