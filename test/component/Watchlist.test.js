@@ -30,7 +30,11 @@ const watchlistMockData = [
 
 describe('Render Watchlist', () => {
   it('should render watchlist', async () => {
-    const { getByTestId } = render(Watchlist);
+    const { getByTestId } = render(Watchlist, {
+      props: {
+        watchlistDatas: watchlistMockData,
+      },
+    });
 
     const watchlist = getByTestId('watchlist');
 
@@ -38,7 +42,11 @@ describe('Render Watchlist', () => {
   });
 
   it('should left-aligned', async () => {
-    const { getByTestId } = render(Watchlist);
+    const { getByTestId } = render(Watchlist, {
+      props: {
+        watchlistDatas: watchlistMockData,
+      },
+    });
 
     const watchlist = getByTestId('watchlist');
 
@@ -48,7 +56,11 @@ describe('Render Watchlist', () => {
   });
 
   it('should render header w/ regular light', async () => {
-    const { getByTestId } = render(Watchlist);
+    const { getByTestId } = render(Watchlist, {
+      props: {
+        watchlistDatas: watchlistMockData,
+      },
+    });
 
     const header = getByTestId('watchlist-header');
 
