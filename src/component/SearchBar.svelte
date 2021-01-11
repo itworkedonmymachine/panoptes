@@ -74,8 +74,14 @@
     margin: 0;
     height: calc(100vh - var(--header-height) - 70px);
     overflow: scroll;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
+  .platform-list::-webkit-scrollbar {
+    display: none;
+  }
   .platform {
     position: relative;
     cursor: pointer;
