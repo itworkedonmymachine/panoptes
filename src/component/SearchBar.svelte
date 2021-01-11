@@ -72,6 +72,8 @@
   .platform-list {
     padding: 0;
     margin: 0;
+    height: calc(100vh - var(--header-height) - 70px);
+    overflow: scroll;
   }
 
   .platform {

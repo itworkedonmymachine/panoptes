@@ -198,6 +198,21 @@ describe('Check platform list style', () => {
     });
   });
 
+  it('should platform list have height of watch list & scrollable', () => {
+    const { getByTestId } = render(SearchBar, {
+      props: {
+        statusPlatforms: ['Docker', 'NPM', 'Dropbox'],
+      },
+    });
+
+    const platformList = getByTestId('platform-list');
+
+    expect(platformList).toHaveStyle({
+      height: 'calc(100vh - var(--header-height) - 70px)',
+      overflow: 'scroll',
+    });
+  });
+
   it('should cursor be pointer when hover on platform', async () => {
     const { getAllByTestId } = render(SearchBar, {
       props: {
