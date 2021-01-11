@@ -3,6 +3,16 @@
   export let onClose = () => {
     show = false;
   };
+
+  const toggleBodyScroll = (disable) => {
+    if (disable) {
+      document.body.style.overflow = 'hidden';
+      return;
+    }
+    document.body.style.overflow = '';
+  };
+
+  $: toggleBodyScroll(show);
 </script>
 
 <style>
