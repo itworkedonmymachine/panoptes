@@ -1,5 +1,4 @@
-import { writable, derived } from 'svelte/store';
-// import statusStorePool from './statusStorePool';
+import { writable } from 'svelte/store';
 
 export const setListLocalStorage = (platforms) => {
   localStorage.setItem('watchList', JSON.stringify(platforms));
@@ -10,16 +9,9 @@ const getListLocalStorage = () => {
   return JSON.parse(watchListJsonString);
 };
 
-export const selectedPlatforms = writable([], (set) => {
+export const watchListStore = writable([], (set) => {
   const localStorageList = getListLocalStorage();
   if (localStorageList) {
     set(localStorageList);
   }
 });
-
-export const watchListStore = derived(
-  selectedPlatforms,
-  ($selectedPlatforms, set) => {
-    set($selectedPlatforms);
-  }
-);
