@@ -14,4 +14,6 @@ export const watchListStore = writable([], (set) => {
   if (localStorageList) {
     set(localStorageList);
   }
+
+  return () => set([]);
 });
