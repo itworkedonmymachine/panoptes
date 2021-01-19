@@ -1,6 +1,8 @@
 import { fireEvent, render } from '@testing-library/svelte';
 import SearchBar from '../../src/component/SearchBar.svelte';
 
+const clearWatchListInLocalStorage = () => localStorage.removeItem('watchList');
+
 describe('Render search bar', () => {
   it('should render search bar', async () => {
     const { getByTestId } = render(SearchBar);
@@ -56,6 +58,14 @@ describe('Render search bar', () => {
 });
 
 describe('Check Search Bar style', () => {
+  beforeEach(() => {
+    clearWatchListInLocalStorage();
+  });
+
+  afterEach(() => {
+    clearWatchListInLocalStorage();
+  });
+
   it('should have classes for style', async () => {
     const { getByTestId } = render(SearchBar);
 
@@ -182,6 +192,14 @@ describe('Check Search Bar style', () => {
 });
 
 describe('Check platform list style', () => {
+  beforeEach(() => {
+    clearWatchListInLocalStorage();
+  });
+
+  afterEach(() => {
+    clearWatchListInLocalStorage();
+  });
+
   it('should have no margin or padding for platform list', () => {
     const { getByTestId } = render(SearchBar, {
       props: {
