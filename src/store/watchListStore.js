@@ -10,15 +10,12 @@ const getListLocalStorage = () => {
   return JSON.parse(watchListJsonString);
 };
 
-const setSelectedPlatforms = () => {
+export const selectedPlatforms = writable([], (set) => {
   const localStorageList = getListLocalStorage();
-  if (!localStorageList) {
-    return [];
+  if (localStorageList) {
+    set(localStorageList);
   }
-  return localStorageList;
-};
-
-export const selectedPlatforms = writable([], setSelectedPlatforms());
+});
 
 export const watchListStore = derived(
   selectedPlatforms,
