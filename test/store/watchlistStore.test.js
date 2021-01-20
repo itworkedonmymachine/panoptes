@@ -2,7 +2,7 @@ import { get } from 'svelte/store';
 import {
   saveWatchlistToLocalStorage,
   watchlistStore,
-} from '../../src/store/watchListStore';
+} from '../../src/store/watchlistStore';
 
 const clearWatchlistInLocalStorage = () => localStorage.removeItem('watchlist');
 

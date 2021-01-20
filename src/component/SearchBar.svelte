@@ -3,7 +3,7 @@
   import {
     watchlistStore,
     saveWatchlistToLocalStorage,
-  } from '../store/watchListStore';
+  } from '../store/watchlistStore';
 
   export let statusPlatforms = []; // any[]
   export let userInput = '';
