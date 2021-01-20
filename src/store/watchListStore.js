@@ -1,16 +1,16 @@
 import { writable } from 'svelte/store';
 
-export const saveWatchListToLocalStorage = (platforms) => {
-  localStorage.setItem('watchList', JSON.stringify(platforms));
+export const saveWatchlistToLocalStorage = (platforms) => {
+  localStorage.setItem('watchlist', JSON.stringify(platforms));
 };
 
-const restoreWatchListFromLocalStorage = () => {
-  const watchListJsonString = localStorage.getItem('watchList');
-  return JSON.parse(watchListJsonString);
+const restoreWatchlistFromLocalStorage = () => {
+  const watchlistJsonString = localStorage.getItem('watchlist');
+  return JSON.parse(watchlistJsonString);
 };
 
-export const watchListStore = writable([], (set) => {
-  const localStorageList = restoreWatchListFromLocalStorage();
+export const watchlistStore = writable([], (set) => {
+  const localStorageList = restoreWatchlistFromLocalStorage();
   if (localStorageList) {
     set(localStorageList);
   }

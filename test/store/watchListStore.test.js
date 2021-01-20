@@ -1,28 +1,28 @@
 import { get } from 'svelte/store';
 import {
-  saveWatchListToLocalStorage,
-  watchListStore,
+  saveWatchlistToLocalStorage,
+  watchlistStore,
 } from '../../src/store/watchListStore';
 
-const clearWatchListInLocalStorage = () => localStorage.removeItem('watchList');
+const clearWatchlistInLocalStorage = () => localStorage.removeItem('watchlist');
 
 describe('Manage watchlist store', () => {
   beforeEach(() => {
-    clearWatchListInLocalStorage();
+    clearWatchlistInLocalStorage();
   });
 
   afterAll(() => {
-    clearWatchListInLocalStorage();
+    clearWatchlistInLocalStorage();
   });
 
   it('should have empty list when local storage is empty', () => {
-    expect(get(watchListStore)).toEqual([]);
+    expect(get(watchlistStore)).toEqual([]);
   });
 
   it('should restore list when local storage is set', () => {
     const testPlatforms = ['platform1', 'platform2'];
-    saveWatchListToLocalStorage(testPlatforms);
+    saveWatchlistToLocalStorage(testPlatforms);
 
-    expect(get(watchListStore)).toEqual(testPlatforms);
+    expect(get(watchlistStore)).toEqual(testPlatforms);
   });
 });
