@@ -3,24 +3,29 @@
   import WatchlistItem from './WatchlistItem.svelte';
   import statusStorePool from '../store/statusStorePool';
 
-  export let watchlistDatas = [];
+  export let watchlist = {};
 
-  let unsubscribes;
+  $: subscribedPlatforms = Object.keys(watchlist).filter(
+    (platform) => watchlist[platform].unsubscribe
+  );
 
   // if it's not test
-  if (watchlistDatas.length === 0) {
-    unsubscribes = Object.keys(statusStorePool).forEach((platform, i) => {
+  if (watchlist.length === 0) {
+    Object.keys(statusStorePool).forEach((platform) => {
       const store = statusStorePool[platform].summarizedStatusStore;
-      store.subscribe((watchlistData) => {
-        watchlistDatas[i] = watchlistData;
+      const unsubscribe = store.subscribe((watchlistData) => {
+        watchlist[platform].data = watchlistData;
       });
+      watchlist[platform].unsubscribe = unsubscribe;
     });
   }
 
   onDestroy(() => {
-    if (unsubscribes) {
-      unsubscribes.forEach((unsubscribe) => unsubscribe());
-    }
+    Object.keys(watchlist).forEach((platform) => {
+      if (watchlist[platform].unsubscribe) {
+        watchlist[platform].unsubscribe();
+      }
+    });
   });
 </script>
 
@@ -45,14 +50,14 @@
 <div data-testid="watchlist" class="watchlist">
   <div data-testid="watchlist-header" class="watchlist-header">
     <span
-      data-testid="watchlist-length">{watchlistDatas.length
+      data-testid="watchlist-length">{subscribedPlatforms.length
         .toString()
         .padStart(3, '0')}</span>
     <span>Watchlist</span>
   </div>
   <div data-testid="watchlist-contents" class="watchlist-contents">
-    {#each watchlistDatas as watchlistData}
-      <WatchlistItem {...watchlistData} />
+    {#each Object.keys(watchlist) as platform}
+      <WatchlistItem {...watchlist[platform].data} />
     {/each}
   </div>
 </div>
