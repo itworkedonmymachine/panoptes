@@ -1,7 +1,8 @@
 import { render } from '@testing-library/svelte';
 import Watchlist from '../../src/component/Watchlist.svelte';
+import { watchlistStore } from '../../src/store/watchlistStore';
 
-const watchlistMockData = {
+const generateWatchlistMockData = () => ({
   Test1: {
     data: {
       platform: 'Test1',
@@ -38,13 +39,18 @@ const watchlistMockData = {
     },
     unsubscribe: () => {},
   },
-};
+});
+const watchlistMockPlatforms = Object.keys(generateWatchlistMockData());
 
 describe('Render Watchlist', () => {
+  beforeEach(() => {
+    watchlistStore.set(watchlistMockPlatforms);
+  });
+
   it('should render watchlist', async () => {
     const { getByTestId } = render(Watchlist, {
       props: {
-        watchlist: watchlistMockData,
+        watchlist: generateWatchlistMockData(),
       },
     });
 
@@ -56,7 +62,7 @@ describe('Render Watchlist', () => {
   it('should left-aligned', async () => {
     const { getByTestId } = render(Watchlist, {
       props: {
-        watchlist: watchlistMockData,
+        watchlist: generateWatchlistMockData(),
       },
     });
 
@@ -70,7 +76,7 @@ describe('Render Watchlist', () => {
   it('should render header w/ regular light', async () => {
     const { getByTestId } = render(Watchlist, {
       props: {
-        watchlist: watchlistMockData,
+        watchlist: generateWatchlistMockData(),
       },
     });
 
@@ -85,7 +91,7 @@ describe('Render Watchlist', () => {
   it('should show length of watchlist', async () => {
     const { getByTestId } = render(Watchlist, {
       props: {
-        watchlist: watchlistMockData,
+        watchlist: generateWatchlistMockData(),
       },
     });
 
@@ -97,7 +103,7 @@ describe('Render Watchlist', () => {
   it('should render watchlist items', async () => {
     const { getByTestId } = render(Watchlist, {
       props: {
-        watchlist: watchlistMockData,
+        watchlist: generateWatchlistMockData(),
       },
     });
 

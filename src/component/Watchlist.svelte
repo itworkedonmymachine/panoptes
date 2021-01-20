@@ -2,29 +2,39 @@
   import { onDestroy } from 'svelte';
   import WatchlistItem from './WatchlistItem.svelte';
   import statusStorePool from '../store/statusStorePool';
+  import { watchlistStore } from '../store/watchlistStore';
 
   export let watchlist = {};
+  let trigger;
 
-  $: subscribedPlatforms = Object.keys(watchlist).filter(
-    (platform) => watchlist[platform].unsubscribe
-  );
+  $: platforms = Object.keys(watchlist);
 
-  // if it's not test
-  if (watchlist.length === 0) {
-    Object.keys(statusStorePool).forEach((platform) => {
-      const store = statusStorePool[platform].summarizedStatusStore;
-      const unsubscribe = store.subscribe((watchlistData) => {
-        watchlist[platform].data = watchlistData;
+  $: {
+    $watchlistStore
+      .filter((platform) => watchlist[platform] === undefined)
+      .forEach((platform) => {
+        watchlist[platform] = { data: {}, unsubscribe: null };
+        const store = statusStorePool[platform].summarizedStatusStore;
+        const unsubscribe = store.subscribe((watchlistData) => {
+          watchlist[platform].data = watchlistData;
+        });
+        watchlist[platform].unsubscribe = unsubscribe;
       });
-      watchlist[platform].unsubscribe = unsubscribe;
-    });
+
+    Object.keys(watchlist)
+      .filter((platform) => !$watchlistStore.includes(platform))
+      .forEach((platform) => {
+        watchlist[platform].unsubscribe();
+        delete watchlist[platform];
+        // since delete does not trigger re-render, do dummy assign for render
+        trigger = trigger;
+      });
   }
 
   onDestroy(() => {
-    Object.keys(watchlist).forEach((platform) => {
-      if (watchlist[platform].unsubscribe) {
-        watchlist[platform].unsubscribe();
-      }
+    platforms.forEach((platform) => {
+      watchlist[platform].unsubscribe();
+      delete watchlist[platform];
     });
   });
 </script>
@@ -50,13 +60,13 @@
 <div data-testid="watchlist" class="watchlist">
   <div data-testid="watchlist-header" class="watchlist-header">
     <span
-      data-testid="watchlist-length">{subscribedPlatforms.length
+      data-testid="watchlist-length">{platforms.length
         .toString()
         .padStart(3, '0')}</span>
     <span>Watchlist</span>
   </div>
   <div data-testid="watchlist-contents" class="watchlist-contents">
-    {#each Object.keys(watchlist) as platform}
+    {#each platforms as platform}
       <WatchlistItem {...watchlist[platform].data} />
     {/each}
   </div>
