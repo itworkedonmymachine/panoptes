@@ -87,6 +87,17 @@ describe('Check Search Bar style', () => {
     });
   });
 
+  it('should render search bar with global background & font color', async () => {
+    const { getByTestId } = render(SearchBar);
+
+    const searchContainer = getByTestId('search-container');
+
+    expect(searchContainer).toHaveStyle({
+      color: 'var(--font-color)',
+      background: 'var(--background-color)',
+    });
+  });
+
   it('should render search bar component have default font setting as large & light', async () => {
     const { getByTestId } = render(SearchBar);
 

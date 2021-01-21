@@ -15,6 +15,11 @@
 
     --font-weight-bold: 700;
     --font-weight-light: 300;
+
+    --font-color: #333333;
+    --secondary-font-color: #c4c4c4;
+    --background-color: #ffffff;
+    --border-color: #000000;
   }
 
   main {
@@ -22,6 +27,15 @@
     margin: 0 auto;
 
     padding-top: var(--header-height);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --font-color: #cccccc;
+      --secondary-font-color: #737373;
+      --background-color: #000000;
+      --border-color: #ffffff;
+    }
   }
 
   @media (max-width: 759px) {

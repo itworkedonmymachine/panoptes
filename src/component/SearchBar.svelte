@@ -62,10 +62,13 @@
     padding: 0;
     width: 100%;
     flex: 1;
+
+    background: var(--background-color);
+    color: var(--font-color);
   }
 
   .search-bar::placeholder {
-    color: #c4c4c4;
+    color: var(--secondary-font-color);
     font-weight: var(--font-weight-light);
   }
 

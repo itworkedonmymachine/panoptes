@@ -6,13 +6,15 @@ body {
 }
 
 body {
-  color: #333;
+  color: var(--font-color);
   margin: 0;
   box-sizing: border-box;
   font-family: 'Helvetica Neue', sans-serif;
 
   -ms-overflow-style: none;
   scrollbar-width: none;
+
+  background: var(--background-color);
 }
 
 body::-webkit-scrollbar {
