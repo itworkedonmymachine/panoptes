@@ -68,7 +68,7 @@
   }
 
   .search-bar::placeholder {
-    color: #c4c4c4;
+    color: var(--secondary-font-color);
     font-weight: var(--font-weight-light);
   }
 

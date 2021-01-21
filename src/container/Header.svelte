@@ -25,7 +25,7 @@
     justify-content: space-between;
     text-align: center;
 
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid var(--border-color);
   }
 
   .title {
@@ -42,7 +42,7 @@
   .settings {
     font-size: var(--font-size-regular);
     font-weight: var(--font-weight-light);
-    color: rgba(0, 0, 0, 0.3);
+    color: var(--secondary-font-color);
     margin: auto 0;
   }
 
