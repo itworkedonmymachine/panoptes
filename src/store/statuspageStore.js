@@ -23,6 +23,7 @@ const getSummarizedStatusOf = (rawStatusPair) => {
     fetching: false,
     minor: indicator === 'minor',
     major: indicator === 'major',
+    maintenance: indicator === 'maintenance',
   };
 };
 
