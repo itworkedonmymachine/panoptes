@@ -42,6 +42,22 @@ describe('Render Watchlist Item', () => {
     });
   });
 
+  it('should render Fetching status w/ grey background', async () => {
+    const { getByTestId } = render(WatchlistItem, {
+      props: {
+        platform: 'Platform',
+        fetching: true,
+      },
+    });
+
+    const watchlistItem = getByTestId('watchlist-item');
+
+    expect(watchlistItem).toHaveTextContent('Platform');
+    expect(watchlistItem).toHaveStyle({
+      background: 'var(--fetching-color)',
+    });
+  });
+
   it('should render Minor Outage status w/ orange background', async () => {
     const { getByTestId } = render(WatchlistItem, {
       props: {
@@ -55,7 +71,7 @@ describe('Render Watchlist Item', () => {
 
     expect(watchlistItem).toHaveTextContent('Platform');
     expect(watchlistItem).toHaveStyle({
-      background: 'rgba(242, 153, 74, 0.5)',
+      background: 'var(--minor-outage-color)',
     });
   });
 
@@ -72,7 +88,7 @@ describe('Render Watchlist Item', () => {
 
     expect(watchlistItem).toHaveTextContent('Platform');
     expect(watchlistItem).toHaveStyle({
-      background: 'rgba(235, 87, 87, 0.5)',
+      background: 'var(--major-outage-color)',
     });
   });
 
@@ -88,7 +104,7 @@ describe('Render Watchlist Item', () => {
 
     expect(watchlistItem).toHaveTextContent('Platform');
     expect(watchlistItem).toHaveStyle({
-      background: 'rgba(39, 174, 96, 0.5)',
+      background: 'var(--operational-color)',
     });
   });
 });

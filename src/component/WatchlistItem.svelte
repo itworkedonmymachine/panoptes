@@ -14,19 +14,19 @@
   }
 
   .fetching {
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--fetching-color);
   }
 
   .minor {
-    background: rgba(242, 153, 74, 0.5);
+    background: var(--minor-outage-color);
   }
 
   .major {
-    background: rgba(235, 87, 87, 0.5);
+    background: var(--major-outage-color);
   }
 
   .operational {
-    background: rgba(39, 174, 96, 0.5);
+    background: var(--operational-color);
   }
 </style>
 
