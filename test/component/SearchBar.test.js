@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/svelte';
 import SearchBar from '../../src/component/SearchBar.svelte';
 
-const clearWatchListInLocalStorage = () => localStorage.removeItem('watchList');
+const clearWatchListInLocalStorage = () => localStorage.removeItem('watchlist');
 
 describe('Render search bar', () => {
   it('should render search bar', async () => {

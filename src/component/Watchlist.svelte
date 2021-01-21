@@ -2,25 +2,40 @@
   import { onDestroy } from 'svelte';
   import WatchlistItem from './WatchlistItem.svelte';
   import statusStorePool from '../store/statusStorePool';
+  import { watchlistStore } from '../store/watchlistStore';
 
-  export let watchlistDatas = [];
+  export let watchlist = {};
+  let trigger;
 
-  let unsubscribes;
+  $: platforms = Object.keys(watchlist);
 
-  // if it's not test
-  if (watchlistDatas.length === 0) {
-    unsubscribes = Object.keys(statusStorePool).forEach((platform, i) => {
-      const store = statusStorePool[platform].summarizedStatusStore;
-      store.subscribe((watchlistData) => {
-        watchlistDatas[i] = watchlistData;
+  $: {
+    $watchlistStore
+      .filter((platform) => watchlist[platform] === undefined)
+      .forEach((platform) => {
+        watchlist[platform] = { data: {}, unsubscribe: null };
+        const store = statusStorePool[platform].summarizedStatusStore;
+        const unsubscribe = store.subscribe((watchlistData) => {
+          watchlist[platform].data = watchlistData;
+        });
+        watchlist[platform].unsubscribe = unsubscribe;
       });
-    });
+
+    Object.keys(watchlist)
+      .filter((platform) => !$watchlistStore.includes(platform))
+      .forEach((platform) => {
+        watchlist[platform].unsubscribe();
+        delete watchlist[platform];
+        // since delete does not trigger re-render, do dummy assign for render
+        trigger = trigger;
+      });
   }
 
   onDestroy(() => {
-    if (unsubscribes) {
-      unsubscribes.forEach((unsubscribe) => unsubscribe());
-    }
+    platforms.forEach((platform) => {
+      watchlist[platform].unsubscribe();
+      delete watchlist[platform];
+    });
   });
 </script>
 
@@ -45,14 +60,14 @@
 <div data-testid="watchlist" class="watchlist">
   <div data-testid="watchlist-header" class="watchlist-header">
     <span
-      data-testid="watchlist-length">{watchlistDatas.length
+      data-testid="watchlist-length">{platforms.length
         .toString()
         .padStart(3, '0')}</span>
     <span>Watchlist</span>
   </div>
   <div data-testid="watchlist-contents" class="watchlist-contents">
-    {#each watchlistDatas as watchlistData}
-      <WatchlistItem {...watchlistData} />
+    {#each platforms as platform}
+      <WatchlistItem {...watchlist[platform].data} />
     {/each}
   </div>
 </div>

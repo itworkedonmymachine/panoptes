@@ -1,9 +1,9 @@
 <script>
   import { platforms } from '../store/statusStorePool';
   import {
-    watchListStore,
-    saveWatchListToLocalStorage,
-  } from '../store/watchListStore';
+    watchlistStore,
+    saveWatchlistToLocalStorage,
+  } from '../store/watchlistStore';
 
   export let statusPlatforms = []; // any[]
   export let userInput = '';
@@ -16,11 +16,11 @@
   }
 
   const handlePlatformClick = (platform) => {
-    if ($watchListStore.includes(platform)) {
-      $watchListStore = $watchListStore.filter((p) => p !== platform);
+    if ($watchlistStore.includes(platform)) {
+      $watchlistStore = $watchlistStore.filter((p) => p !== platform);
       return;
     }
-    $watchListStore = [...$watchListStore, platform];
+    $watchlistStore = [...$watchlistStore, platform];
   };
 
   const handleClear = () => {
@@ -34,9 +34,9 @@
       )
     : statusPlatforms;
 
-  $: isPlatformSelectd = (platform) => $watchListStore.includes(platform);
+  $: isPlatformSelectd = (platform) => $watchlistStore.includes(platform);
 
-  $: saveWatchListToLocalStorage($watchListStore);
+  $: saveWatchlistToLocalStorage($watchlistStore);
 </script>
 
 <style>
