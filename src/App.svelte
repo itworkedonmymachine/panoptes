@@ -29,6 +29,15 @@
     padding-top: var(--header-height);
   }
 
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --font-color: #ffffff;
+      --secondary-font-color: #737373;
+      --background-color: #000000;
+      --border-color: #ffffff;
+    }
+  }
+
   @media (max-width: 759px) {
     :root {
       --header-height: 80px;
