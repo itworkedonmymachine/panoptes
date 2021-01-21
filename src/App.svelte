@@ -31,7 +31,7 @@
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --font-color: #ffffff;
+      --font-color: #cccccc;
       --secondary-font-color: #737373;
       --background-color: #000000;
       --border-color: #ffffff;
