@@ -15,7 +15,6 @@
     left: 0;
     right: 0;
 
-    background: #ffffff;
     z-index: 99;
   }
 
