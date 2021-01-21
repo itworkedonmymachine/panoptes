@@ -23,7 +23,8 @@
     left: 0;
     right: 0;
 
-    background: rgba(255, 255, 255, 0.9);
+    background: var(--background-color);
+    opacity: 0.9;
 
     z-index: 139;
   }
@@ -61,7 +62,7 @@
     right: 0;
 
     height: calc(var(--header-height) + 40px);
-    background: #ffffff;
+    background: var(--background-color);
   }
 
   @media (min-width: 760px) {

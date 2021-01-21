@@ -17,13 +17,14 @@ describe('Render Modal overlay', () => {
     });
   });
 
-  it('should overlay have white background color w/ little transparency', () => {
+  it('should overlay have global background color w/ little transparency', () => {
     const { getByTestId } = render(Modal);
 
     const overlay = getByTestId('overlay');
 
     expect(overlay).toHaveStyle({
-      background: 'rgba(255, 255, 255, 0.9)',
+      background: 'var(--background-color)',
+      opacity: 0.9,
     });
   });
 
@@ -74,7 +75,7 @@ describe('Render Modal', () => {
       left: '0',
       right: '0',
       height: 'calc(var(--header-height) + 40px)',
-      background: '#FFFFFF',
+      background: 'var(--background-color)',
     });
   });
 });
