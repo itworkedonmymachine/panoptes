@@ -15,6 +15,10 @@
 
     --font-weight-bold: 700;
     --font-weight-light: 300;
+
+    --font-color: #333333;
+    --background-color: #ffffff;
+    --border-color: #000000;
   }
 
   main {
