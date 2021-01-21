@@ -37,6 +37,20 @@ describe('Render Viewport', () => {
     });
   });
 
+  it('should have background color as global variable', async () => {
+    const { getByTestId } = render(StatusTicker, {
+      props: {
+        statusTickerDatas: statusTickerMockDatas,
+      },
+    });
+
+    const statusTickerViewport = getByTestId('status-ticker-viewport');
+
+    expect(statusTickerViewport).toHaveStyle({
+      background: 'var(--background-color)',
+    });
+  });
+
   it('should sizing w/ border-box', async () => {
     const { getByTestId } = render(StatusTicker, {
       props: {
@@ -61,8 +75,8 @@ describe('Render Viewport', () => {
     const statusTickerViewport = getByTestId('status-ticker-viewport');
 
     expect(statusTickerViewport).toHaveStyle({
-      'border-top': '1px solid #000000',
-      'border-bottom': '1px solid #000000',
+      'border-top': '1px solid var(--border-color)',
+      'border-bottom': '1px solid var(--border-color)',
     });
   });
 

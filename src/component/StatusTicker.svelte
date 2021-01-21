@@ -42,8 +42,10 @@
     overflow: hidden;
 
     box-sizing: border-box;
-    border-top: 1px solid #000000;
-    border-bottom: 1px solid #000000;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+
+    background: var(--background-color);
   }
 
   .status-ticker-viewport-inner {
