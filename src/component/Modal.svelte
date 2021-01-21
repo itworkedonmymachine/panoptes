@@ -55,16 +55,6 @@
     display: none;
   }
 
-  .header-ticker-cover {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-
-    height: calc(var(--header-height) + 40px);
-    background: var(--background-color);
-  }
-
   @media (min-width: 760px) {
     .container {
       width: 700px;
@@ -89,7 +79,6 @@
 
 <div data-testid="overlay" class="modal-overlay" class:closed={!show}>
   <div data-testid="container" class="container">
-    <div data-testid="header-ticker-cover" class="header-ticker-cover" />
     <div data-testid="cancel-button-container" class="cancel-button-container">
       <div data-testid="cancel-button" class="cancel-button" on:click={onClose}>
         CANCEL

@@ -62,22 +62,6 @@ describe('Render Modal', () => {
       position: 'relative',
     });
   });
-
-  it('should cover header & ticker', () => {
-    const { getByTestId } = render(Modal);
-
-    const headerCover = getByTestId('header-ticker-cover');
-
-    expect(headerCover).toBeVisible();
-    expect(headerCover).toHaveStyle({
-      position: 'absolute',
-      top: '0',
-      left: '0',
-      right: '0',
-      height: 'calc(var(--header-height) + 40px)',
-      background: 'var(--background-color)',
-    });
-  });
 });
 
 describe('Render Cancel button', () => {
