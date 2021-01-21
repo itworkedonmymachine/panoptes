@@ -16,6 +16,8 @@
     right: 0;
 
     z-index: 99;
+
+    background: var(--background-color);
   }
 
   .container {
