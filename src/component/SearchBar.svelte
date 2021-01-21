@@ -62,6 +62,9 @@
     padding: 0;
     width: 100%;
     flex: 1;
+
+    background: var(--background-color);
+    color: var(--font-color);
   }
 
   .search-bar::placeholder {
