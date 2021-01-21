@@ -40,6 +40,8 @@
       --secondary-font-color: #737373;
       --background-color: #000000;
       --border-color: #ffffff;
+
+      --fetching-color: rgba(255, 255, 255, 0.2);
     }
   }
 
