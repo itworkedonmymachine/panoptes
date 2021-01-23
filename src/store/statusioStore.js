@@ -20,8 +20,9 @@ const getSummarizedStatusOf = (rawStatusPair) => {
   return {
     platform,
     fetching: false,
-    minor: statusCode > 100 && statusCode < 500,
+    minor: statusCode > 200 && statusCode < 500,
     major: statusCode >= 500,
+    maintenance: statusCode === 200,
   };
 };
 

@@ -163,4 +163,21 @@ describe('Render Status', () => {
       background: 'var(--operational-color)',
     });
   });
+
+  it('should render Maintenance status w/ text', async () => {
+    const { getByTestId } = render(StatusTickerItem, {
+      props: {
+        platform: 'Test',
+        fetching: false,
+        maintenance: true,
+      },
+    });
+
+    const status = getByTestId('status');
+
+    expect(status).toHaveTextContent('Maintenance');
+    expect(status).toHaveStyle({
+      background: 'var(--maintenance-color)',
+    });
+  });
 });
