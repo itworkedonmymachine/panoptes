@@ -111,4 +111,22 @@ describe('Render Watchlist', () => {
 
     expect(contents.childElementCount).toBe(4);
   });
+
+  it("should indicate user to add platform when there's none", async () => {
+    watchlistStore.set([]);
+    const { getByTestId } = render(Watchlist, {
+      props: {
+        watchlist: {},
+      },
+    });
+
+    const indicator = getByTestId('watchlist-indicator');
+
+    expect(indicator).toHaveStyle({
+      'font-size': 'var(--font-size-regular)',
+      'font-weight': 'var(--font-weight-light)',
+      color: 'var(--secondary-font-color)',
+    });
+    expect(indicator).toHaveTextContent('Go Search, Add platforms');
+  });
 });
