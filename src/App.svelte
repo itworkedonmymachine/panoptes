@@ -1,5 +1,6 @@
 <script>
   import Header from './container/Header.svelte';
+  import SearchModal from './container/SearchModal.svelte';
   import StatusTicker from './component/StatusTicker.svelte';
   import Watchlist from './component/Watchlist.svelte';
 </script>
@@ -78,6 +79,7 @@
   }
 </style>
 
+<SearchModal />
 <Header />
 <main>
   <StatusTicker />

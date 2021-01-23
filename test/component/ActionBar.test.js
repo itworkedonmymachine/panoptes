@@ -1,5 +1,7 @@
-import { render } from '@testing-library/svelte';
+import { get } from 'svelte/store';
+import { fireEvent, render } from '@testing-library/svelte';
 import ActionBar from '../../src/component/ActionBar.svelte';
+import { showSearchBar } from '../../src/store/modalStore';
 
 describe('Render search bar', () => {
   it('should placed at top, w/ 0 height', () => {
@@ -87,4 +89,20 @@ describe('Render search bar', () => {
       cursor: 'pointer',
     });
   });
+});
+
+describe('Show modals when search | settings are clicked', () => {
+  it('should set showSearchBar as true when user clicks search', async () => {
+    showSearchBar.set(false);
+
+    const { getByTestId } = render(ActionBar);
+
+    const search = getByTestId('search');
+
+    expect(get(showSearchBar)).toBe(false);
+    await fireEvent.click(search);
+    expect(get(showSearchBar)).toBe(true);
+  });
+
+  // settings will be implemented later
 });

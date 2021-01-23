@@ -1,10 +1,8 @@
 <script>
-  import Modal from '../component/Modal.svelte';
-  import SearchBar from '../component/SearchBar.svelte';
   import { showSearchBar } from '../store/modalStore';
 
-  const toggleShowSearchBar = () => {
-    $showSearchBar = !$showSearchBar;
+  const openSearchBar = () => {
+    showSearchBar.set(true);
   };
 </script>
 
@@ -81,13 +79,10 @@
   }
 </style>
 
-<Modal show={$showSearchBar} onClose={toggleShowSearchBar}>
-  <SearchBar />
-</Modal>
 <div data-testid="header" class="header">
   <div data-testid="container" class="container">
     <!-- <slot name="search" /> -->
-    <div data-testid="search" class="search" on:click={toggleShowSearchBar}>
+    <div data-testid="search" class="search" on:click={openSearchBar}>
       Search
     </div>
     <div data-testid="title" class="title">Panoptes</div>

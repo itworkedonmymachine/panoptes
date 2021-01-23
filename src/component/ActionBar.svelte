@@ -1,4 +1,10 @@
 <script>
+  import { showSearchBar } from '../store/modalStore';
+
+  const openSearchBar = () => {
+    showSearchBar.set(true);
+  };
+
   let isPullToShowActionBar = false;
   let isActionBarVisible = false;
   let pullStartY = 0;
@@ -98,7 +104,9 @@
 
 <div data-testid="action-bar" class="action-bar" bind:this={container}>
   <div data-testid="container" class="container">
-    <div data-testid="search" class="search">Search</div>
+    <div data-testid="search" class="search" on:click={openSearchBar}>
+      Search
+    </div>
     <div data-testid="settings" class="settings">Settings</div>
   </div>
 </div>
