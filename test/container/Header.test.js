@@ -1,5 +1,7 @@
+import { get } from 'svelte/store';
 import { fireEvent, render } from '@testing-library/svelte';
 import Header from '../../src/container/Header.svelte';
+import { showSearchBar } from '../../src/store/modalStore';
 
 describe('Render Header', () => {
   it('should have backgroung as global color', async () => {
@@ -86,15 +88,16 @@ describe('Render Header', () => {
 });
 
 describe('Show modals when search | settings are clicked', () => {
-  it('should show modal when user clicks search', async () => {
+  it('should set showSearchBar as true when user clicks search', async () => {
+    showSearchBar.set(false);
+
     const { getByTestId } = render(Header);
 
     const search = getByTestId('search');
-    const searchBar = getByTestId('search-bar');
 
-    expect(searchBar).not.toBeVisible();
+    expect(get(showSearchBar)).toBe(false);
     await fireEvent.click(search);
-    expect(searchBar).toBeVisible();
+    expect(get(showSearchBar)).toBe(true);
   });
 
   // settings will be implemented later
