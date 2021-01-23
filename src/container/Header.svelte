@@ -1,10 +1,10 @@
 <script>
   import Modal from '../component/Modal.svelte';
   import SearchBar from '../component/SearchBar.svelte';
+  import { showSearchBar } from '../store/modalStore';
 
-  let showSearchBar = false;
   const toggleShowSearchBar = () => {
-    showSearchBar = !showSearchBar;
+    $showSearchBar = !$showSearchBar;
   };
 </script>
 
@@ -81,7 +81,7 @@
   }
 </style>
 
-<Modal show={showSearchBar} onClose={toggleShowSearchBar}>
+<Modal show={$showSearchBar} onClose={toggleShowSearchBar}>
   <SearchBar />
 </Modal>
 <div data-testid="header" class="header">
