@@ -88,6 +88,12 @@
 
     padding: 10px 0;
   }
+
+  @media (min-width: 760px) {
+    .action-bar {
+      display: none;
+    }
+  }
 </style>
 
 <div data-testid="action-bar" class="action-bar" bind:this={container}>
