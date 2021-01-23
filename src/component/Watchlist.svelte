@@ -50,6 +50,12 @@
     font-weight: var(--font-weight-light);
   }
 
+  .indicator {
+    font-size: var(--font-size-regular);
+    font-weight: var(--font-weight-light);
+    color: var(--secondary-font-color);
+  }
+
   @media (max-width: 759px) {
     .watchlist {
       padding: 10px 0;
@@ -66,6 +72,11 @@
     <span>Watchlist</span>
   </div>
   <div data-testid="watchlist-contents" class="watchlist-contents">
+    {#if platforms.length === 0}
+      <span data-testid="watchlist-indicator" class="indicator">
+        Go Search, Add platforms
+      </span>
+    {/if}
     {#each platforms as platform}
       <WatchlistItem {...watchlist[platform].data} />
     {/each}
