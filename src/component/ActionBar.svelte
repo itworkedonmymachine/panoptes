@@ -2,7 +2,7 @@
   import { showSearchBar } from '../store/modalStore';
 
   const openSearchBar = () => {
-    showSearchBar.set(true);
+    $showSearchBar = true;
   };
 
   let isPullToShowActionBar = false;
@@ -23,7 +23,7 @@
   };
 
   const onTouchMove = (e) => {
-    if (!isPullToShowActionBar) {
+    if (!isPullToShowActionBar || $showSearchBar) {
       return;
     }
 
