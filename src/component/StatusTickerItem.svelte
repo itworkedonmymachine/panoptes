@@ -3,8 +3,9 @@
   export let fetching = true;
   export let minor = false;
   export let major = false;
+  export let maintenance = false;
 
-  $: operational = !fetching && !minor && !major;
+  $: operational = !fetching && !minor && !major && !maintenance;
   $: generateStatusMessage = () => {
     if (fetching) {
       return 'Fetching';
@@ -16,6 +17,10 @@
 
     if (major) {
       return 'Major Outage';
+    }
+
+    if (maintenance) {
+      return 'Maintenance';
     }
 
     return 'Operational';
@@ -57,6 +62,10 @@
   .operational {
     background: var(--operational-color);
   }
+
+  .maintenance {
+    background: var(--maintenance-color);
+  }
 </style>
 
 <div data-testid="status-ticker-item" class="status-ticker-item">
@@ -67,6 +76,7 @@
     class:fetching
     class:minor
     class:major
+    class:maintenance
     class:operational>
     {generateStatusMessage()}
   </p>

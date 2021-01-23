@@ -107,4 +107,21 @@ describe('Render Watchlist Item', () => {
       background: 'var(--operational-color)',
     });
   });
+
+  it('should render Maintenance status w/ blue background', async () => {
+    const { getByTestId } = render(WatchlistItem, {
+      props: {
+        platform: 'Platform',
+        fetching: false,
+        maintenance: true,
+      },
+    });
+
+    const watchlistItem = getByTestId('watchlist-item');
+
+    expect(watchlistItem).toHaveTextContent('Platform');
+    expect(watchlistItem).toHaveStyle({
+      background: 'var(--maintenance-color)',
+    });
+  });
 });
