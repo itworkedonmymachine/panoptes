@@ -28,14 +28,14 @@ describe('Render settings', () => {
 });
 
 describe('Render options lists', () => {
-  it('should show options w/ large light font', () => {
+  it('should show option text w/ large light font', () => {
     const { getAllByTestId } = render(Settings);
 
-    const options = getAllByTestId('option');
+    const optionTexts = getAllByTestId('option-text');
 
-    options.forEach((option) => {
-      expect(option).toBeVisible();
-      expect(option).toHaveStyle({
+    optionTexts.forEach((optionText) => {
+      expect(optionText).toBeVisible();
+      expect(optionText).toHaveStyle({
         'font-size': 'var(--font-size-large)',
         'font-weight': 'var(--font-weight-light)',
       });
@@ -65,14 +65,14 @@ describe('Render options lists', () => {
     });
   });
 
-  it('should font for option have fixed line-height', async () => {
+  it('should font for option have height as line-height 1.2', async () => {
     const { getAllByTestId } = render(Settings);
 
     const options = getAllByTestId('option');
 
     options.forEach((option) => {
       expect(option).toHaveStyle({
-        'line-height': '1.2',
+        height: 'calc(var(--font-size-large) * 1.2)',
       });
     });
   });

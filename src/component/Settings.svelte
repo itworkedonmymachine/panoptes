@@ -36,6 +36,10 @@
 
   .option {
     position: relative;
+    height: calc(var(--font-size-large) * 1.2);
+  }
+
+  .option-text {
     line-height: 1.2;
 
     font-size: var(--font-size-large);
@@ -51,13 +55,24 @@
     display: flex;
     align-items: center;
   }
+
+  @media (max-width: 759px) {
+    .option-text {
+      display: none;
+    }
+
+    .option-icon {
+      left: 0;
+      justify-content: center;
+    }
+  }
 </style>
 
 <div class="container" data-testid="container">
   <div class="title" data-testid="title">Settings</div>
   <dl class="option-list" data-testid="option-list">
     <dt class="option" data-testid="option">
-      Toggle Dark Mode
+      <div class="option-text" data-testid="option-text">Toggle Dark Mode</div>
       <div class="option-icon" data-testid="option-icon">
         {#if isDarkMode}
           <MoonIcon width={48} height={48} />
