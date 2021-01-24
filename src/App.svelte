@@ -1,6 +1,7 @@
 <script>
   import Header from './container/Header.svelte';
   import SearchModal from './container/SearchModal.svelte';
+  import SettingsModal from './container/SettingsModal.svelte';
   import StatusTicker from './component/StatusTicker.svelte';
   import Watchlist from './component/Watchlist.svelte';
   import ActionBar from './component/ActionBar.svelte';
@@ -81,6 +82,7 @@
 </style>
 
 <SearchModal />
+<SettingsModal />
 <Header />
 <main>
   <ActionBar />

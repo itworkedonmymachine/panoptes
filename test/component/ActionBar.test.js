@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
 import { fireEvent, render } from '@testing-library/svelte';
 import ActionBar from '../../src/component/ActionBar.svelte';
-import { showSearchBar } from '../../src/store/modalStore';
+import { showSearchBar, showSettings } from '../../src/store/modalStore';
 
 describe('Render search bar', () => {
   it('should placed at top, w/ 0 height', () => {
@@ -84,8 +84,12 @@ describe('Render search bar', () => {
     const { getByTestId } = render(ActionBar);
 
     const search = getByTestId('search');
+    const settings = getByTestId('settings');
 
     expect(search).toHaveStyle({
+      cursor: 'pointer',
+    });
+    expect(settings).toHaveStyle({
       cursor: 'pointer',
     });
   });
@@ -104,5 +108,15 @@ describe('Show modals when search | settings are clicked', () => {
     expect(get(showSearchBar)).toBe(true);
   });
 
-  // settings will be implemented later
+  it('should set showSettings as true when user clicks settings', async () => {
+    showSettings.set(false);
+
+    const { getByTestId } = render(ActionBar);
+
+    const settings = getByTestId('settings');
+
+    expect(get(showSettings)).toBe(false);
+    await fireEvent.click(settings);
+    expect(get(showSettings)).toBe(true);
+  });
 });

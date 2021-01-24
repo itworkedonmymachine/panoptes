@@ -1,8 +1,12 @@
 <script>
-  import { showSearchBar } from '../store/modalStore';
+  import { showSearchBar, showSettings } from '../store/modalStore';
 
   const openSearchBar = () => {
     showSearchBar.set(true);
+  };
+
+  const openSettings = () => {
+    showSettings.set(true);
   };
 </script>
 
@@ -34,12 +38,9 @@
     margin: auto 0;
   }
 
-  .search {
-    cursor: pointer;
-  }
-
   .search,
   .settings {
+    cursor: pointer;
     font-size: var(--font-size-regular);
     font-weight: var(--font-weight-light);
     color: var(--secondary-font-color);
@@ -87,6 +88,8 @@
     </div>
     <div data-testid="title" class="title">Panoptes</div>
     <!-- <slot name="settings" /> -->
-    <div data-testid="settings" class="settings">Settings</div>
+    <div data-testid="settings" class="settings" on:click={openSettings}>
+      Settings
+    </div>
   </div>
 </div>

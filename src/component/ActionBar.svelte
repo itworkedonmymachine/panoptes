@@ -1,8 +1,12 @@
 <script>
-  import { showSearchBar } from '../store/modalStore';
+  import { showSearchBar, showSettings } from '../store/modalStore';
 
   const openSearchBar = () => {
     $showSearchBar = true;
+  };
+
+  const openSettings = () => {
+    showSettings.set(true);
   };
 
   let isPullToShowActionBar = false;
@@ -73,12 +77,9 @@
     align-items: flex-end;
   }
 
-  .search {
-    cursor: pointer;
-  }
-
   .search,
   .settings {
+    cursor: pointer;
     font-size: var(--font-size-regular);
     font-weight: var(--font-weight-light);
     color: var(--secondary-font-color);
@@ -107,6 +108,8 @@
     <div data-testid="search" class="search" on:click={openSearchBar}>
       Search
     </div>
-    <div data-testid="settings" class="settings">Settings</div>
+    <div data-testid="settings" class="settings" on:click={openSettings}>
+      Settings
+    </div>
   </div>
 </div>
