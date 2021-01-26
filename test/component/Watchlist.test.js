@@ -10,6 +10,7 @@ const generateWatchlistMockData = () => ({
       minor: false,
       major: false,
     },
+    statusPageLink: 'https://test1.status.io',
     unsubscribe: () => {},
   },
   Test2: {
@@ -19,6 +20,7 @@ const generateWatchlistMockData = () => ({
       minor: true,
       major: false,
     },
+    statusPageLink: 'https://test2.status.io',
     unsubscribe: () => {},
   },
   Test3: {
@@ -28,6 +30,7 @@ const generateWatchlistMockData = () => ({
       minor: false,
       major: false,
     },
+    statusPageLink: 'https://test3.status.io',
     unsubscribe: () => {},
   },
   Test4: {
@@ -37,6 +40,7 @@ const generateWatchlistMockData = () => ({
       minor: false,
       major: false,
     },
+    statusPageLink: 'https://test4.status.io',
     unsubscribe: () => {},
   },
 });
@@ -128,5 +132,38 @@ describe('Render Watchlist', () => {
       color: 'var(--secondary-font-color)',
     });
     expect(indicator).toHaveTextContent('Go Search, Add platforms');
+  });
+
+  it("should show same color whether it's visited or not", async () => {
+    const { getAllByTestId } = render(Watchlist, {
+      props: {
+        watchlist: generateWatchlistMockData(),
+      },
+    });
+
+    const links = getAllByTestId('watchlist-link');
+
+    links.forEach((link) => {
+      expect(link).toHaveStyle({
+        color: 'var(--secondary-font-color)',
+      });
+    });
+  });
+
+  it('should open status page on new tab', async () => {
+    const mockData = generateWatchlistMockData();
+    const { getAllByTestId } = render(Watchlist, {
+      props: {
+        watchlist: mockData,
+      },
+    });
+
+    const links = getAllByTestId('watchlist-link');
+
+    links.forEach((link) => {
+      const platform = link.textContent;
+      expect(link).toHaveAttribute('href', mockData[platform].statusPageLink);
+      expect(link).toHaveAttribute('target', '_blank');
+    });
   });
 });
