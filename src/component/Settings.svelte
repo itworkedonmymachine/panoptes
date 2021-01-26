@@ -3,14 +3,15 @@
   import SunIcon from '../svg-icon/Sun.svelte';
   import {
     isInitialModeDark,
-    toggleGlobalColorVariable,
+    getModeString,
+    updateGlobalColorVariable,
   } from '../style/globalColorVariables';
 
   let isDarkMode = isInitialModeDark();
 
   $: toggleDarkMode = () => {
-    toggleGlobalColorVariable(isDarkMode);
     isDarkMode = !isDarkMode;
+    updateGlobalColorVariable(getModeString(isDarkMode));
   };
 </script>
 

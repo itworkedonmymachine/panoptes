@@ -1,11 +1,4 @@
-export const saveCurrentMode = (isDarkMode) => {
-  let mode = 'light';
-  if (isDarkMode) {
-    mode = 'dark';
-  }
-
-  localStorage.setItem('mode', mode);
-};
+const saveCurrentMode = (mode) => localStorage.setItem('mode', mode);
 
 const restoreModeFromLocalStorage = () => localStorage.getItem('mode');
 
@@ -39,13 +32,20 @@ const lightModeVariable = {
   '--fetching-color': 'rgba(0, 0, 0, 0.2)',
 };
 
-export const toggleGlobalColorVariable = (isDarkMode) => {
-  let styleToToggle = darkModeVariable;
+export const getModeString = (isDarkMode) => {
   if (isDarkMode) {
+    return 'dark';
+  }
+  return 'light';
+};
+
+export const updateGlobalColorVariable = (mode) => {
+  let styleToToggle = darkModeVariable;
+  if (mode === 'light') {
     styleToToggle = lightModeVariable;
   }
 
-  saveCurrentMode(!isDarkMode);
+  saveCurrentMode(mode);
 
   Object.keys(styleToToggle).forEach((style) =>
     document.documentElement.style.setProperty(style, styleToToggle[style])
@@ -55,9 +55,8 @@ export const toggleGlobalColorVariable = (isDarkMode) => {
 export const isInitialModeDark = () => {
   const savedMode = restoreModeFromLocalStorage();
   if (savedMode) {
-    const isDarkMode = savedMode === 'dark';
-    toggleGlobalColorVariable(!isDarkMode);
-    return isDarkMode;
+    updateGlobalColorVariable(savedMode);
+    return savedMode === 'dark';
   }
 
   return isOSSettingDarkMode;
