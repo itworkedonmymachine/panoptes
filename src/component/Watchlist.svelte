@@ -15,7 +15,7 @@
       .filter((platform) => watchlist[platform] === undefined)
       .forEach((platform) => {
         watchlist[platform] = {
-          data: {},
+          status: {},
           statusPageLink: '',
           unsubscribe: null,
         };
@@ -24,7 +24,7 @@
         const store = statusStoreImpl.summarizedStatusStore;
 
         const unsubscribe = store.subscribe((watchlistData) => {
-          watchlist[platform].data = watchlistData;
+          watchlist[platform].status = watchlistData;
         });
         watchlist[platform].statusPageLink = statusStoreImpl.statusPageLink;
         watchlist[platform].unsubscribe = unsubscribe;
@@ -88,7 +88,7 @@
     {/if}
     {#each platforms as platform}
       <WatchlistItem
-        {...watchlist[platform].data}
+        {...watchlist[platform].status}
         statusPageLink={watchlist[platform].statusPageLink} />
     {/each}
   </div>

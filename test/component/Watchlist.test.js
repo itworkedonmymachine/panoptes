@@ -4,7 +4,7 @@ import { watchlistStore } from '../../src/store/watchlistStore';
 
 const generateWatchlistMockData = () => ({
   Test1: {
-    data: {
+    status: {
       platform: 'Test1',
       fetching: true,
       minor: false,
@@ -14,7 +14,7 @@ const generateWatchlistMockData = () => ({
     unsubscribe: () => {},
   },
   Test2: {
-    data: {
+    status: {
       platform: 'Test2',
       fetching: false,
       minor: true,
@@ -24,7 +24,7 @@ const generateWatchlistMockData = () => ({
     unsubscribe: () => {},
   },
   Test3: {
-    data: {
+    status: {
       platform: 'Test3',
       fetching: false,
       minor: false,
@@ -34,7 +34,7 @@ const generateWatchlistMockData = () => ({
     unsubscribe: () => {},
   },
   Test4: {
-    data: {
+    status: {
       platform: 'Test4',
       fetching: false,
       minor: false,
