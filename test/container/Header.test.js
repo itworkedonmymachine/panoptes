@@ -1,10 +1,10 @@
 import { get } from 'svelte/store';
 import { fireEvent, render } from '@testing-library/svelte';
 import Header from '../../src/container/Header.svelte';
-import { showSearchBar } from '../../src/store/modalStore';
+import { showSearchBar, showSettings } from '../../src/store/modalStore';
 
 describe('Render Header', () => {
-  it('should have backgroung as global color', async () => {
+  it('should have background as global color', async () => {
     const { getByTestId } = render(Header);
 
     const header = getByTestId('header');
@@ -76,12 +76,16 @@ describe('Render Header', () => {
     });
   });
 
-  it('should make cursor as pointer if hovered on search', async () => {
+  it('should make cursor as pointer if hovered on search, settings', async () => {
     const { getByTestId } = render(Header);
 
     const search = getByTestId('search');
+    const settings = getByTestId('settings');
 
     expect(search).toHaveStyle({
+      cursor: 'pointer',
+    });
+    expect(settings).toHaveStyle({
       cursor: 'pointer',
     });
   });
@@ -100,5 +104,15 @@ describe('Show modals when search | settings are clicked', () => {
     expect(get(showSearchBar)).toBe(true);
   });
 
-  // settings will be implemented later
+  it('should set showSettings as true when user clicks settings', async () => {
+    showSettings.set(false);
+
+    const { getByTestId } = render(Header);
+
+    const settings = getByTestId('settings');
+
+    expect(get(showSettings)).toBe(false);
+    await fireEvent.click(settings);
+    expect(get(showSettings)).toBe(true);
+  });
 });
