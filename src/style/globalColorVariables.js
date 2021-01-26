@@ -13,16 +13,7 @@ const isOSSettingDarkMode =
   window.matchMedia &&
   window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-export const isInitialModeDark = () => {
-  const savedMode = restoreModeFromLocalStorage();
-  if (savedMode) {
-    return savedMode === 'dark';
-  }
-
-  return isOSSettingDarkMode;
-};
-
-export const darkModeVariable = {
+const darkModeVariable = {
   '--font-color': '#cccccc',
   '--secondary-font-color': '#737373',
   '--background-color': '#000000',
@@ -35,7 +26,7 @@ export const darkModeVariable = {
   '--fetching-color': 'rgba(255, 255, 255, 0.2)',
 };
 
-export const lightModeVariable = {
+const lightModeVariable = {
   '--font-color': '#333333',
   '--secondary-font-color': '#c4c4c4',
   '--background-color': '#ffffff',
@@ -46,4 +37,26 @@ export const lightModeVariable = {
   '--major-outage-color': 'rgba(235, 87, 87, 0.5)',
   '--maintenance-color': 'rgba(45, 156, 219, 0.5)',
   '--fetching-color': 'rgba(0, 0, 0, 0.2)',
+};
+
+export const toggleGlobalColorVariable = (isDarkMode) => {
+  let styleToToggle = darkModeVariable;
+  if (isDarkMode) {
+    styleToToggle = lightModeVariable;
+  }
+
+  Object.keys(styleToToggle).forEach((style) =>
+    document.documentElement.style.setProperty(style, styleToToggle[style])
+  );
+};
+
+export const isInitialModeDark = () => {
+  const savedMode = restoreModeFromLocalStorage();
+  if (savedMode) {
+    const isDarkMode = savedMode === 'dark';
+    toggleGlobalColorVariable(!isDarkMode);
+    return isDarkMode;
+  }
+
+  return isOSSettingDarkMode;
 };

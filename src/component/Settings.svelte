@@ -4,22 +4,13 @@
   import {
     isInitialModeDark,
     saveCurrentMode,
-    darkModeVariable,
-    lightModeVariable,
+    toggleGlobalColorVariable,
   } from '../style/globalColorVariables';
 
   let isDarkMode = isInitialModeDark();
 
   $: toggleDarkMode = () => {
-    let styleToToggle = darkModeVariable;
-    if (isDarkMode) {
-      styleToToggle = lightModeVariable;
-    }
-
-    Object.keys(styleToToggle).forEach((style) =>
-      document.documentElement.style.setProperty(style, styleToToggle[style])
-    );
-
+    toggleGlobalColorVariable(isDarkMode);
     isDarkMode = !isDarkMode;
     saveCurrentMode(isDarkMode);
   };
