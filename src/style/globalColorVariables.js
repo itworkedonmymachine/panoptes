@@ -1,6 +1,26 @@
-export const isOSSettingDarkMode = () =>
+export const saveCurrentMode = (isDarkMode) => {
+  let mode = 'light';
+  if (isDarkMode) {
+    mode = 'dark';
+  }
+
+  localStorage.setItem('mode', mode);
+};
+
+const restoreModeFromLocalStorage = () => localStorage.getItem('mode');
+
+const isOSSettingDarkMode =
   window.matchMedia &&
   window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+export const isInitialModeDark = () => {
+  const savedMode = restoreModeFromLocalStorage();
+  if (savedMode) {
+    return savedMode === 'dark';
+  }
+
+  return isOSSettingDarkMode;
+};
 
 export const darkModeVariable = {
   '--font-color': '#cccccc',

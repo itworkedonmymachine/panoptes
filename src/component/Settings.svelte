@@ -2,23 +2,26 @@
   import MoonIcon from '../svg-icon/Moon.svelte';
   import SunIcon from '../svg-icon/Sun.svelte';
   import {
-    isOSSettingDarkMode,
+    isInitialModeDark,
+    saveCurrentMode,
     darkModeVariable,
     lightModeVariable,
   } from '../style/globalColorVariables';
 
-  let isDarkMode = isOSSettingDarkMode();
+  let isDarkMode = isInitialModeDark();
 
   $: toggleDarkMode = () => {
     let styleToToggle = darkModeVariable;
     if (isDarkMode) {
       styleToToggle = lightModeVariable;
     }
-    document.body.style.setProperty('transition', 'background-color 1s linear');
+
     Object.keys(styleToToggle).forEach((style) =>
       document.documentElement.style.setProperty(style, styleToToggle[style])
     );
+
     isDarkMode = !isDarkMode;
+    saveCurrentMode(isDarkMode);
   };
 </script>
 
