@@ -54,6 +54,16 @@ describe('Render options lists', () => {
     });
   });
 
+  it('should option make cursor as pointer', () => {
+    const { getByTestId } = render(Settings);
+
+    const optionList = getByTestId('option');
+
+    expect(optionList).toHaveStyle({
+      cursor: 'pointer',
+    });
+  });
+
   it('should option list have height of watch list & scrollable', () => {
     const { getByTestId } = render(Settings);
 

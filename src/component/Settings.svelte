@@ -2,9 +2,47 @@
   import MoonIcon from '../svg-icon/Moon.svelte';
   import SunIcon from '../svg-icon/Sun.svelte';
 
-  const isDarkMode =
+  let isDarkMode =
     window.matchMedia &&
     window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  const darkModeVariable = {
+    '--font-color': '#cccccc',
+    '--secondary-font-color': '#737373',
+    '--background-color': '#000000',
+    '--border-color': '#ffffff',
+
+    '--operational-color': 'rgba(39, 174, 96, 0.5)',
+    '--minor-outage-color': 'rgba(242, 153, 74, 0.5)',
+    '--major-outage-color': 'rgba(235, 87, 87, 0.5)',
+    '--maintenance-color': 'rgba(45, 156, 219, 0.5)',
+    '--fetching-color': 'rgba(255, 255, 255, 0.2)',
+  };
+
+  const lightModeVariable = {
+    '--font-color': '#333333',
+    '--secondary-font-color': '#c4c4c4',
+    '--background-color': '#ffffff',
+    '--border-color': '#000000',
+
+    '--operational-color': 'rgba(39, 174, 96, 0.5)',
+    '--minor-outage-color': 'rgba(242, 153, 74, 0.5)',
+    '--major-outage-color': 'rgba(235, 87, 87, 0.5)',
+    '--maintenance-color': 'rgba(45, 156, 219, 0.5)',
+    '--fetching-color': 'rgba(0, 0, 0, 0.2)',
+  };
+
+  $: toggleDarkMode = () => {
+    let styleToToggle = darkModeVariable;
+    if (isDarkMode) {
+      styleToToggle = lightModeVariable;
+    }
+    document.body.style.setProperty('transition', 'background-color 1s linear');
+    Object.keys(styleToToggle).forEach((style) =>
+      document.documentElement.style.setProperty(style, styleToToggle[style])
+    );
+    isDarkMode = !isDarkMode;
+  };
 </script>
 
 <style>
@@ -37,6 +75,7 @@
   .option {
     position: relative;
     height: calc(var(--font-size-large) * 1.2);
+    cursor: pointer;
   }
 
   .option-text {
@@ -71,7 +110,7 @@
 <div class="container" data-testid="container">
   <div class="title" data-testid="title">Settings</div>
   <dl class="option-list" data-testid="option-list">
-    <dt class="option" data-testid="option">
+    <dt class="option" data-testid="option" on:click={toggleDarkMode}>
       <div class="option-text" data-testid="option-text">Toggle Dark Mode</div>
       <div class="option-icon" data-testid="option-icon">
         {#if isDarkMode}
