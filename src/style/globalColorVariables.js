@@ -45,6 +45,8 @@ export const toggleGlobalColorVariable = (isDarkMode) => {
     styleToToggle = lightModeVariable;
   }
 
+  saveCurrentMode(!isDarkMode);
+
   Object.keys(styleToToggle).forEach((style) =>
     document.documentElement.style.setProperty(style, styleToToggle[style])
   );
