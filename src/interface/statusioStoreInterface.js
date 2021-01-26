@@ -6,9 +6,10 @@ import {
 
 class StatusioStore extends PlatformStatus {
   constructor(platform, statusId) {
+    const statusPageLink = `https://status.io/pages/${statusId}`;
     const rawStatusStore = createRawStatusStore(platform, statusId);
     const summarizedStatusStore = createSummarizedStatusStore(rawStatusStore);
-    super(platform, rawStatusStore, summarizedStatusStore);
+    super(platform, statusPageLink, rawStatusStore, summarizedStatusStore);
 
     this._statusId = statusId;
   }
