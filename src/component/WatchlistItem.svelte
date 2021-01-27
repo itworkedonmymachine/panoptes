@@ -5,6 +5,8 @@
   export let major = false;
   export let maintenance = false;
 
+  export let statusPageLink = '';
+
   $: operational = !fetching && !minor && !major && !maintenance;
 </script>
 
@@ -33,6 +35,10 @@
   .maintenance {
     background: var(--maintenance-color);
   }
+
+  a {
+    color: var(--font-color);
+  }
 </style>
 
 <p
@@ -43,5 +49,7 @@
   class:major
   class:maintenance
   class:operational>
-  {platform}
+  <a data-testid="watchlist-link" href={statusPageLink} target="_blank">
+    {platform}
+  </a>
 </p>

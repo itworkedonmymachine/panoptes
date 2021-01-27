@@ -5,6 +5,7 @@
   import { watchlistStore } from '../store/watchlistStore';
 
   export let watchlist = {};
+  export let statusPageLink = {};
   let trigger;
 
   $: platforms = Object.keys(watchlist);
@@ -13,11 +14,19 @@
     $watchlistStore
       .filter((platform) => watchlist[platform] === undefined)
       .forEach((platform) => {
-        watchlist[platform] = { data: {}, unsubscribe: null };
-        const store = statusStorePool[platform].summarizedStatusStore;
+        watchlist[platform] = {
+          status: {},
+          statusPageLink: '',
+          unsubscribe: null,
+        };
+
+        const statusStoreImpl = statusStorePool[platform];
+        const store = statusStoreImpl.summarizedStatusStore;
+
         const unsubscribe = store.subscribe((watchlistData) => {
-          watchlist[platform].data = watchlistData;
+          watchlist[platform].status = watchlistData;
         });
+        watchlist[platform].statusPageLink = statusStoreImpl.statusPageLink;
         watchlist[platform].unsubscribe = unsubscribe;
       });
 
@@ -78,7 +87,9 @@
       </span>
     {/if}
     {#each platforms as platform}
-      <WatchlistItem {...watchlist[platform].data} />
+      <WatchlistItem
+        {...watchlist[platform].status}
+        statusPageLink={watchlist[platform].statusPageLink} />
     {/each}
   </div>
 </div>
