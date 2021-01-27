@@ -1,10 +1,18 @@
 <script>
   import MoonIcon from '../svg-icon/Moon.svelte';
   import SunIcon from '../svg-icon/Sun.svelte';
+  import {
+    isInitialModeDark,
+    getModeString,
+    updateGlobalColorVariable,
+  } from '../style/globalColorVariables';
 
-  const isDarkMode =
-    window.matchMedia &&
-    window.matchMedia('(prefers-color-scheme: dark)').matches;
+  let isDarkMode = isInitialModeDark();
+
+  $: toggleDarkMode = () => {
+    isDarkMode = !isDarkMode;
+    updateGlobalColorVariable(getModeString(isDarkMode));
+  };
 </script>
 
 <style>
@@ -37,6 +45,7 @@
   .option {
     position: relative;
     height: calc(var(--font-size-large) * 1.2);
+    cursor: pointer;
   }
 
   .option-text {
@@ -71,7 +80,7 @@
 <div class="container" data-testid="container">
   <div class="title" data-testid="title">Settings</div>
   <dl class="option-list" data-testid="option-list">
-    <dt class="option" data-testid="option">
+    <dt class="option" data-testid="option" on:click={toggleDarkMode}>
       <div class="option-text" data-testid="option-text">Toggle Dark Mode</div>
       <div class="option-icon" data-testid="option-icon">
         {#if isDarkMode}
